@@ -9,7 +9,7 @@ struct Monom {
 
 	bool operator<=(const Monom& m);
 	friend std::ostream& operator<<(std::ostream& out, const Monom& m);
-	friend std::istream& operator>>(std::istream& in, const Monom& m);
+	friend std::istream& operator>>(std::istream& in, Monom& m);
 };
 bool Monom::operator<=(const Monom& m)
 {
@@ -20,12 +20,12 @@ bool Monom::operator<=(const Monom& m)
 }
 std::ostream& operator<<(std::ostream& out, const Monom& m)
 {
+	out << m.coeff << "x^" << m.x << "*y^" << m.y << "*z^ ";
 	return out;
 }
-std::istream& operator>>(std::istream& in, const Monom& m)
+std::istream& operator>>(std::istream& in, Monom& m)
 {
+	in >> m.coeff >> m.x >> m.y >> m.z;
 	return in;
 }
-/*
-Мономы мы должны хранить упорядочено => оператор сравнения для данной структуры
-*/
+

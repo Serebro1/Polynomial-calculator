@@ -15,9 +15,19 @@ protected:
 public:
 	TList() : pFirst(nullptr), pLast(nullptr), sz(0) {}
 	TList(const TList& copy);
+	TList(TList&& queue);
 	~TList();
+
 	TList& operator=(const TList& copy);
 	void clear();
+	TList& operator=(TList&& queue);
+	friend void swap(TList<T>& first, TList<T>& second);
+
+	bool operator==(const TList& right) const;
+	bool operator!=(const TList& right) const;
+
+	T& operator[](int pos);
+	Node<T>* ToPos(int pos);
 
 	void insFirst(const T& value);
 	void insLast(const T& value);
@@ -51,7 +61,12 @@ TList<T>::TList(const TList& copy)
 	}
 	pLast = prev;
 }
-
+template<class T>
+TList<T>::TList(TList&& queue)
+{
+	pFirst = nullptr;
+	swap(*this, queue);
+}
 template<class T>
 TList<T>::~TList()
 {
@@ -102,6 +117,63 @@ void TList<T>::clear()
 }
 
 template<class T>
+TList<T>& TList<T>::operator=(TList&& queue)
+{
+	swap(*this, queue);
+	return *this;
+}
+
+template<class T>
+void swap(TList<T>& first, TList<T>& second)
+{
+	std::swap(first.pFirst, second.pFirst);
+	std::swap(first.pLast, second.pLast);
+	std::swap(first.sz, second.sz);
+}
+
+template<class T>
+bool TList<T>::operator==(const TList& right) const
+{
+	if (sz != right.sz) return false;
+	Node<T>* tmpFirst = pFirst;
+	Node<T>* tmpSecond = right.pFirst;
+	while (tmpFirst != nullptr)
+	{
+		if (tmpFirst->val != tmpSecond->val) return false;
+		tmpFirst = tmpFirst->pNext;
+		tmpSecond = tmpSecond->pNext;
+	}
+	return true;
+	
+}
+
+template<class T>
+bool TList<T>::operator!=(const TList& right) const
+{
+	return !(*this == right);
+}
+
+template<class T>
+T& TList<T>::operator[](int pos)
+{
+	Node<T>* res = ToPos(pos);
+	return res->val;
+}
+
+template<class T>
+Node<T>* TList<T>::ToPos(int pos)
+{
+	Node<T>* tmp = pFirst;
+	int count = 0;
+	while (tmp != nullptr && count != pos) {
+		tmp = tmp->pNext;
+		count++;
+	}
+	if (tmp == nullptr) throw - 2; // Выход за список
+	return tmp;
+}
+
+template<class T>
 void TList<T>::insFirst(const T& value)
 {
 	Node<T>* node = new Node<T>(value, pFirst);
@@ -133,9 +205,16 @@ void TList<T>::delFirst()
 template<class T>
 void TList<T>::delLast()
 {
-	if (pLast == nullptr) return;
-	
+	if (pFirst == nullptr) return;
+	Node<T>* tmp = pLast;
+	delete tmp;
 
+	Node<T>* tmp = pFirst;
+	while (tmp->pNext != nullptr) {
+		tmp = tmp->pNext;
+	}
+	pLast = tmp;
+	sz--;
 }
 template<class T>
 class Polinom : public TList {
