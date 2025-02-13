@@ -21,7 +21,11 @@ public:
 	TList& operator=(const TList& copy);
 	void clear();
 	TList& operator=(TList&& queue);
-	friend void swap(TList<T>& first, TList<T>& second);
+	friend void swap(TList<T>& first, TList<T>& second) {
+		std::swap(first.pFirst, second.pFirst);
+		std::swap(first.pLast, second.pLast);
+		std::swap(first.sz, second.sz);
+	};
 
 	bool operator==(const TList& right) const;
 	bool operator!=(const TList& right) const;
@@ -44,11 +48,11 @@ public:
 template<class T>
 TList<T>::TList(const TList& copy)
 {
-	if (st.pFirst == nullptr) return;
-	Node<T>* tmp = st.pFirst;
+	if (copy.pFirst == nullptr) return;
+	Node<T>* tmp = copy.pFirst;
 	pFirst = new Node<T>();
 	pFirst->pNext = nullptr;
-	pFirst->val = st.pFirst->val;
+	pFirst->val = copy.pFirst->val;
 	Node<T>* prev = pFirst;
 	tmp = tmp->pNext;
 	while (tmp != nullptr) {
@@ -114,6 +118,7 @@ void TList<T>::clear()
 		delete tmp;
 	}
 	pLast = nullptr;
+	sz = 0;
 }
 
 template<class T>
@@ -121,14 +126,6 @@ TList<T>& TList<T>::operator=(TList&& queue)
 {
 	swap(*this, queue);
 	return *this;
-}
-
-template<class T>
-void swap(TList<T>& first, TList<T>& second)
-{
-	std::swap(first.pFirst, second.pFirst);
-	std::swap(first.pLast, second.pLast);
-	std::swap(first.sz, second.sz);
 }
 
 template<class T>
@@ -176,7 +173,7 @@ Node<T>* TList<T>::ToPos(int pos)
 template<class T>
 void TList<T>::insFirst(const T& value)
 {
-	Node<T>* node = new Node<T>(value, pFirst);
+	Node<T>* node = new Node<T>{ value, pFirst };
 	if (pFirst == nullptr) pLast = node;
 	pFirst = node;
 	sz++;
@@ -188,7 +185,7 @@ void TList<T>::insLast(const T& value)
 	Node<T>* node = new Node<T>(value, nullptr);
 	if (pFirst == nullptr) {pFirst = node;}
 	else pLast->pNext = node;
-	pLast = node
+	pLast = node;
 	sz++;
 }
 
@@ -206,8 +203,8 @@ template<class T>
 void TList<T>::delLast()
 {
 	if (pFirst == nullptr) return;
-	Node<T>* tmp = pLast;
-	delete tmp;
+	Node<T>* node = pLast;
+	delete node;
 
 	Node<T>* tmp = pFirst;
 	while (tmp->pNext != nullptr) {
@@ -217,7 +214,7 @@ void TList<T>::delLast()
 	sz--;
 }
 template<class T>
-class Polinom : public TList {
+class Polinom : public TList<T> {
 	/*
 		Список с конкретным типом данных
 		Реализует специфические методы, такие как:
