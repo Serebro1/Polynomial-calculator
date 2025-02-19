@@ -70,3 +70,23 @@ P - P = 0
 Список: созданиие, добавление, удаление
 Попробуем написать класс итератор для списка.
 */
+#include "TList.h"
+#include <list>
+int main() {
+	// 1 способ,
+	TList<int> l;
+	for (l.reset(); !l.isEnd(); l.goNext()) {
+		std::cout << l.getCurr();
+	}
+	// должен перебрать все элементы списка.
+	// есть ф-ция которая возвращает текущий элемент списка
+
+	// 2 способ(нужно выполнить). Написать приближенный класс к итератору из стандартной библиотеки.
+	std::list<int> lst;
+	std::list<int>::iterator iter;
+	for (iter = lst.begin(); iter != lst.end(); ++iter)
+	{
+		std::cout << *iter;
+	}
+	return 0;
+}

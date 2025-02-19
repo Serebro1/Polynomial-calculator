@@ -7,14 +7,19 @@ struct Monom {
 	
 	Monom() : coeff(0), x(0), y(0), z(0) {};
 	Monom(double _coeff, int _x, int _y, int _z) :coeff(_coeff), x(_x), y(_y), z(_z) {};
-	bool operator<=(const Monom& m) {
+	bool operator<(const Monom& m) {
 		unsigned int left = x * 100 + y * 10 + z;
 		unsigned int right = m.x * 100 + m.y * 10 + m.z;
 		if (left < right) return true;
 		if (left > right) return false;
-		if (coeff <= m.coeff) return true;
 		return false;
 	};
+	bool operator==(const Monom& m) {
+		unsigned int left = x * 100 + y * 10 + z;
+		unsigned int right = m.x * 100 + m.y * 10 + m.z;
+		if (left == right) return true;
+		return false;
+	}
 	friend std::ostream& operator<<(std::ostream& out, const Monom& m) {
 		out << m.coeff;
 		if (m.x != 0) out << "*x^" << m.x;
