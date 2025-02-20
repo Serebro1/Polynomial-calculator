@@ -88,5 +88,12 @@ int main() {
 	{
 		std::cout << *iter;
 	}
+	/*Polinom pol;
+	Polinom::iterator q = pol.begin();
+	for (q = pol.begin(); q!=pol.end() ; ++q)
+	{
+		std::cout << q->x << " ";
+	}
+	std::cout << endl;*/
 	return 0;
 }

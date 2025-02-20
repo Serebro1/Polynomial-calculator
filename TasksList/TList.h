@@ -1,5 +1,7 @@
 #pragma once
 #include "monom.h"
+#include "iteratorTlist.h"
+
 template<class T>
 struct Node {
 	T val;
@@ -13,6 +15,11 @@ protected:
 	// указатели на: начало, предыдущий от текущего эл-та, текущий эл-т, конец списка.
 	int sz;
 public:
+	typedef ListIterator<T> iterator;
+
+	iterator begin() { return iterator(pFirst); }
+	iterator end() { return iterator(pLast->pNext); }
+
 	TList() : pFirst(nullptr), pPrev(nullptr), pCurr(nullptr), pLast(nullptr), sz(0) {}
 	TList(const TList& copy);
 	TList(TList&& queue);
@@ -58,11 +65,13 @@ template<class T>
 TList<T>::TList(const TList& copy)
 {
 	if (copy.pFirst == nullptr) return;
+
 	Node<T>* tmp = copy.pFirst;
 	pFirst = new Node<T>();
 	pFirst->pNext = nullptr;
 	pFirst->val = copy.pFirst->val;
 	Node<T>* prev = pFirst;
+
 	tmp = tmp->pNext;
 	while (tmp != nullptr) {
 		Node<T>* node = new Node<T>();
@@ -72,17 +81,22 @@ TList<T>::TList(const TList& copy)
 		tmp = tmp->pNext;
 		prev = prev->pNext;
 	}
+
 	pLast = prev;
 	pPrev = copy.pPrev;
 	pCurr = copy.pCurr;
-	
+	sz = copy.sz;
 }
+
+
 template<class T>
 TList<T>::TList(TList&& queue)
 {
 	pFirst = nullptr;
 	swap(*this, queue);
 }
+
+
 template<class T>
 TList<T>::~TList()
 {

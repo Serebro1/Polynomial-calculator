@@ -32,5 +32,8 @@
     <ClInclude Include="TList.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="iteratorTList.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

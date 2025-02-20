@@ -114,8 +114,8 @@ TEST(TList, lists_are_equal) {
     l1.insFirst(5);
 
 
-    l1.delFirst();
-    l1.delFirst();
+    l1.delLast();
+    l1.delLast();
 
     l2.insFirst(3);
     l2.insFirst(4);
