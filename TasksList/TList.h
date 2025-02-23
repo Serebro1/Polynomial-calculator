@@ -17,10 +17,10 @@ protected:
 public:
 	typedef ListIterator<T> iterator;
 
-	iterator begin() { return iterator(pFirst); }
-	iterator end() { return iterator(pLast->pNext); }
+	iterator begin() { return iterator(pFirst); };
+	iterator end() { return iterator(pLast->pNext); };
 
-	TList() : pFirst(nullptr), pPrev(nullptr), pCurr(nullptr), pLast(nullptr), sz(0) {}
+	TList() : pFirst(nullptr), pPrev(nullptr), pCurr(nullptr), pLast(nullptr), sz(0) {};
 	TList(const TList& copy);
 	TList(TList&& queue);
 	~TList();
@@ -45,7 +45,7 @@ public:
 	void reset() { pCurr = pFirst; pPrev = nullptr; };
 	void goNext() { pPrev = pCurr;  pCurr = pCurr->pNext; };
 
-	T getCurr() { return pCurr->val; }
+	T getCurr() { return pCurr->val; };
 
 	void insFirst(const T& value);
 	void insLast(const T& value);
@@ -55,8 +55,8 @@ public:
 	void delLast();
 	
 
-	int size() { return sz; }
-	bool isEmpty() { return sz == 0; }
+	int size() { return sz; };
+	bool isEmpty() { return sz == 0; };
 	
 
 };
@@ -212,7 +212,7 @@ void TList<T>::insFirst(const T& value)
 template<class T>
 void TList<T>::insLast(const T& value)
 {
-	Node<T>* node = new Node<T>(value, nullptr);
+	Node<T>* node = new Node<T>{ value, nullptr };
 	if (pFirst == nullptr) { pFirst = node; }
 	else pLast->pNext = node;
 	pLast = node;

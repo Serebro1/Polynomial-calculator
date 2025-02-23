@@ -1,17 +1,14 @@
 #pragma once
 #include <iterator>
 
-template<typename ValueType> class List;
+template<typename ValueType> class TList;
 template<typename ValueType> struct Node;
-// -> возвращает указатель на Node
 
 template<typename ValueType>
 class ListIterator : public std::iterator<std::input_iterator_tag, ValueType>
 {
-private:
-	friend class List<ValueType>;
-	ListIterator(Node<ValueType>* p);
-	Node<ValueType>* pCurr;
+	friend class TList<ValueType>;
+
 public:
 	ListIterator(const ListIterator& it);
 
@@ -20,6 +17,9 @@ public:
 	typename ListIterator<ValueType>::reference operator*() const;
 	typename ListIterator<ValueType>::pointer operator->() const;
 	ListIterator& operator++();
+private:
+	ListIterator(Node<ValueType>* p);
+	Node<ValueType>* pCurr;
 };
 
 template<typename ValueType>
@@ -47,7 +47,7 @@ bool ListIterator<ValueType>::operator==(const ListIterator& other) const
 template<typename ValueType>
 typename ListIterator<ValueType>::reference ListIterator<ValueType>::operator*() const
 {
-	return *pCurr;
+	return pCurr->val;
 }
 
 template<typename ValueType>

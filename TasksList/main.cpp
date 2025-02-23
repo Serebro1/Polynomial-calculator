@@ -82,8 +82,13 @@ int main() {
 	// есть ф-ция которая возвращает текущий элемент списка
 
 	// 2 способ(нужно выполнить). Написать приближенный класс к итератору из стандартной библиотеки.
-	std::list<int> lst;
-	std::list<int>::iterator iter;
+	TList<int> lst;
+	lst.insLast(1);
+	lst.insLast(2);
+	lst.insLast(3);
+	lst.insLast(4);
+	lst.insLast(5);
+	TList<int>::iterator iter = lst.begin();
 	for (iter = lst.begin(); iter != lst.end(); ++iter)
 	{
 		std::cout << *iter;
