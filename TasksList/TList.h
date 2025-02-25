@@ -13,6 +13,7 @@ class TList {
 protected:
 	Node<T>* pFirst,* pPrev,* pCurr, * pLast;
 	// указатели на: начало, предыдущий от текущего эл-та, текущий эл-т, конец списка.
+	// когда добавляем новое звено, то Curr на месте а предыдущий становится новое добавленное звено
 	int sz;
 public:
 	typedef ListIterator<T> iterator;
@@ -45,9 +46,10 @@ public:
 	void reset() { pCurr = pFirst; pPrev = nullptr; };
 	void goNext() { pPrev = pCurr;  pCurr = pCurr->pNext; };
 
-	T getCurr() { return pCurr->val; };
+	T getCurr() { return pCurr->val; }
 
 	void insFirst(const T& value);
+	void insCurr(T el); // указатели pCurr и pPrev указывают на нужное место
 	void insLast(const T& value);
 
 	void delFirst();
@@ -208,7 +210,24 @@ void TList<T>::insFirst(const T& value)
 	pFirst = node;
 	sz++;
 }
-
+template<class T>
+void TList<T>::insCurr(T el)
+{
+	
+	if (pCurr == pFirst) {
+		insFirst(el);
+		pPrev = pFirst;
+		return;
+	}
+	if (pPrev == pLast && pCurr == nullptr) {
+		insLast(el);
+		return;
+	}
+	Node<T>* node = new Node<T>{ el, pCurr };
+	pPrev->pNext = node;
+	pPrev = pPrev->pNext;
+	sz++;
+}
 template<class T>
 void TList<T>::insLast(const T& value)
 {
@@ -234,14 +253,16 @@ void TList<T>::delCurr()
 {
 	if (pCurr == pFirst) {
 		delFirst();
+		pCurr = pFirst;
+		return;
 	}
-	else if (pCurr == pLast) {
-		delLast();
-	}
-	else {
+	if (pCurr != nullptr) {
 		pPrev->pNext = pCurr->pNext;
 		delete pCurr;
 		pCurr = pPrev->pNext;
+		if (pCurr == nullptr)
+			pLast = pPrev;
+		sz--
 	}
 }
 template<class T>
