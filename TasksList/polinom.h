@@ -5,6 +5,7 @@
 class Polinom : public TList<Monom> {
 	
 public:
+	Polinom() {};
 	Polinom(Monom* p, unsigned int size);
 	
 	void operator+=(Monom m);

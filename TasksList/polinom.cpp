@@ -54,26 +54,35 @@ void Polinom::operator*=(double val)
 
 Polinom Polinom::operator+(Polinom& p)
 {
-	Polinom res(*this);
+	Polinom res;
 	if (pFirst == nullptr) return res = p;
-	iterator resit = res.begin();
+	iterator it = begin();
 	iterator pit = p.begin();
-	while (resit != end() && pit != p.end()) {
-		if (*resit == *pit) {
+	while (it != end() && pit != p.end()) {
+		if (*it == *pit) {
 			res += *pit;
-			++resit;
+			++it;
 			++pit;
 			continue;
 		}
-		if (*resit < *pit){
+		if (*it < *pit){
 			res += *pit;
 			++pit;
 			continue;
 		}
-		++resit;
+		if (*it < *pit){
+			res += *pit;
+			++pit;
+			continue;
+		}
 	}
-	while (pit != end()) {
+	while (it != end()) {
+		res += *it;
+		++it;
+	}
+	while (pit != p.end()) {
 		res += *pit;
+		++pit;
 	}
 	return res;
 }
