@@ -262,7 +262,7 @@ void TList<T>::delCurr()
 		pCurr = pPrev->pNext;
 		if (pCurr == nullptr)
 			pLast = pPrev;
-		sz--
+		sz--;
 	}
 }
 template<class T>

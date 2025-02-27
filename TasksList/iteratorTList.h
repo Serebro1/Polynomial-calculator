@@ -53,7 +53,7 @@ typename ListIterator<ValueType>::reference ListIterator<ValueType>::operator*()
 template<typename ValueType>
 typename ListIterator<ValueType>::pointer ListIterator<ValueType>::operator->() const
 {
-	return pCurr;
+	return &(pCurr->val);
 }
 
 template<typename ValueType>

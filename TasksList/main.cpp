@@ -74,10 +74,10 @@ P - P = 0
 #include <list>
 int main() {
 	// 1 способ,
-	TList<int> l;
+	/*TList<int> l;
 	for (l.reset(); !l.isEnd(); l.goNext()) {
 		std::cout << l.getCurr();
-	}
+	}*/
 	// должен перебрать все элементы списка.
 	// есть ф-ция которая возвращает текущий элемент списка
 

@@ -52,15 +52,16 @@ Polinom Polinom::operator+(const Polinom& p)
 	iterator it = begin();
 	for (it = begin() ; it != end(); ++it)
 		res += *it;
+	return res;
 }
-Polinom Polinom::operator*(const Polinom& p)
-{
-	Polinom res(p), tmp(p);
-	iterator it = begin();
-	for (it = begin(); it != end(); ++it)
-		res += tmp * (*it);
-}
-Polinom Polinom::operator*(const Monom& m)
-{
-	
-}
+//Polinom Polinom::operator*(const Polinom& p)
+//{
+//	Polinom res(p), tmp(p);
+//	iterator it = begin();
+//	for (it = begin(); it != end(); ++it)
+//		res += tmp * (*it);
+//}
+//Polinom Polinom::operator*(const Monom& m)
+//{
+//	
+//}
