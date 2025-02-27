@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gtest-all.cc" />
+    <ClCompile Include="gtest_iterator.cpp" />
     <ClCompile Include="gtest_list.cpp" />
     <ClCompile Include="gtest_monom.cpp" />
     <ClCompile Include="gtest_polinom.cpp" />

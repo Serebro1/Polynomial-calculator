@@ -1,4 +1,4 @@
-#include "../TasksList/polinom.h"
+#include "../TasksList/Polinom.h"
 #include "gtest.h"
 
 
@@ -41,35 +41,29 @@ TEST(TList, list_is_empty) {
 
 TEST(TList, can_insert_element_in_empty_list) {
     TList<int> list;
-    list.insFirst(10);
-    ASSERT_FALSE(list.isEmpty());
-    /*EXPECT_EQ(list.Front(), 10);
-    EXPECT_EQ(list.Back(), 10);
-    list.Push(1);
-    EXPECT_NE(list.Front(), list.Back());*/
+    ASSERT_NO_THROW(list.insFirst(10));
 }
-//TEST(TList, can_view_front_and_back_elements_in_list) {
-//    TList<int> list;
-//    list.insFirst(10);
-//    EXPECT_EQ(list.Front(), 10);
-//    EXPECT_EQ(list.Back(), 10);
-//    list.Push(1);
-//    EXPECT_EQ(list.Front(), 10);
-//    EXPECT_EQ(list.Back(), 1);
-//}
-//
-//TEST(TList, can_delete_element) {
-//    TList<int> list;
-//    list.Push(10);
-//    list.Push(30);
-//    list.Push(20);
-//    EXPECT_EQ(list.Front(), 10);
-//    EXPECT_EQ(list.Back(), 20);
-//    list.Pop();
-//    EXPECT_NE(list.Front(), 10);
-//    EXPECT_EQ(list.Front(), 30);
-//    EXPECT_EQ(list.Back(), 20);
-//}
+TEST(TList, can_view_curr_elements_in_list) {
+    TList<int> list;
+    list.insFirst(10);
+    auto it = list.begin();
+    EXPECT_EQ(*it, 10);
+    list.insCurr(1);
+    EXPECT_EQ(*it, 10);
+}
+
+TEST(TList, can_delete_element) {
+    TList<int> list;
+    list.insLast(10);
+    list.insLast(30);
+    list.insLast(20);
+
+    list.delLast();
+    auto it = list.begin();
+
+    EXPECT_EQ(*it, 10);
+    EXPECT_EQ(*(++it), 30);
+}
 
 TEST(TList, no_throws_when_del_elem_from_empty_list) {
     TList<int> list;
