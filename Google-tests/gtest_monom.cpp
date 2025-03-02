@@ -7,6 +7,40 @@ TEST(Monom, can_create_empty_monom) {
 TEST(Monom, can_create_monom_with_params) {
     ASSERT_NO_THROW(Monom monom(1.2, 1, 2, 3));
 }
+
+TEST(MonomTest, MultiplicationOperator) {
+    Monom m1(2, 1, 0, 3); // 2x^1z^3
+    Monom m2(3, 2, 1, 0); // 3x^2y^1
+    Monom res = m1 * m2;
+
+    
+    EXPECT_DOUBLE_EQ(res.coeff, 6);
+    EXPECT_EQ(res.x, 3);
+    EXPECT_EQ(res.y, 1);
+    EXPECT_EQ(res.z, 3);
+}
+
+TEST(MonomTest, UnaryMinus) {
+    Monom m(4, 0, 2, 1); // 4y^2z^1
+    Monom neg = -m;
+
+    EXPECT_DOUBLE_EQ(neg.coeff, -4);
+    EXPECT_EQ(neg.x, 0);
+    EXPECT_EQ(neg.y, 2);
+    EXPECT_EQ(neg.z, 1);
+}
+
+TEST(MonomTest, MultiplyAssign) {
+    Monom m(5, 1, 1, 1); // 5x^1y^1z^1
+    Monom other(2, 0, 3, 2); // 2y^3z^2
+    m *= other;
+
+    EXPECT_DOUBLE_EQ(m.coeff, 10);
+    EXPECT_EQ(m.x, 1);
+    EXPECT_EQ(m.y, 4);
+    EXPECT_EQ(m.z, 3);
+}
+
 TEST(Monom, can_compare_monoms) {
     Monom m1 = Monom(3.0, 3, 2, 1);
     Monom m2 = Monom(2.0, 3, 2, 1);
@@ -14,8 +48,9 @@ TEST(Monom, can_compare_monoms) {
     m1 = Monom(3.0, 3, 2, 2);
     m2 = Monom(2.0, 1, 2, 1);
     EXPECT_FALSE(m1 < m2);
+    EXPECT_TRUE(m1 > m2);
 }
-TEST(Monom, can_input_monom_with_params_and_output) {
+TEST(Monom, can_input_monom_with_params) {
     Monom monom;
     std::istringstream input("3 2 3 1");
     ASSERT_NO_THROW(input >> monom);

@@ -70,8 +70,7 @@ P - P = 0
 Список: созданиие, добавление, удаление
 Попробуем написать класс итератор для списка.
 */
-#include "TList.h"
-#include <list>
+#include "polinom.h"
 int main() {
 	// 1 способ,
 	/*TList<int> l;
@@ -82,23 +81,27 @@ int main() {
 	// есть ф-ция которая возвращает текущий элемент списка
 
 	// 2 способ(нужно выполнить). Написать приближенный класс к итератору из стандартной библиотеки.
-	TList<int> lst;
-	lst.insLast(1);
-	lst.insLast(2);
-	lst.insLast(3);
-	lst.insLast(4);
-	lst.insLast(5);
-	TList<int>::iterator iter = lst.begin();
-	for (iter = lst.begin(); iter != lst.end(); ++iter)
+	Polinom pol1;
+	pol1 += Monom(3.0, 0, 0, 0);
+	pol1 += Monom(2.0, 1, 1, 1);
+	pol1 += Monom(5.0, 2, 1, 0);
+	Polinom pol2;
+	pol2 += Monom(3.0, 0, 3, 0);
+	pol2 += Monom(-2.0, 1, 1, 1);
+	pol2 += Monom(5.0, 0, 1, 2);
+	Polinom res;
+	Monom m = pol1[0];
+	m *= pol2[2];
+	std::cout << m << std::endl;
+	res = pol1 * pol2;
+	Polinom::iterator q = res.begin();
+	std::cout << "Monoms:" << std::endl;
+	for (q = res.begin(); q != res.end() ; ++q)
 	{
-		std::cout << *iter;
+		std::cout << (*q) << " ";
 	}
-	/*Polinom pol;
-	Polinom::iterator q = pol.begin();
-	for (q = pol.begin(); q!=pol.end() ; ++q)
-	{
-		std::cout << q->x << " ";
-	}
-	std::cout << endl;*/
+	std::cout << std::endl;
+	std::cout << "Polinom:" << std::endl;
+	std::cout << res;
 	return 0;
 }

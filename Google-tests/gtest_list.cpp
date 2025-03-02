@@ -4,11 +4,15 @@
 
 TEST(TList, can_create_empty_list) {
     ASSERT_NO_THROW(TList<int> list);
+    TList<int> list;
+    EXPECT_TRUE(list.isEmpty());
 }
 
 TEST(TList, can_create_copied_list) {
     TList<int> list;
     ASSERT_NO_THROW(TList<int> q_copy(list));
+    TList<int> q_copy(list);
+    EXPECT_TRUE(q_copy.isEmpty());
 }
 
 TEST(TList, copied_list_is_equal_to_source) {
@@ -43,15 +47,71 @@ TEST(TList, can_insert_element_in_empty_list) {
     TList<int> list;
     ASSERT_NO_THROW(list.insFirst(10));
 }
-TEST(TList, can_view_curr_elements_in_list) {
+TEST(TList, can_move_to_next_element_in_list) {
     TList<int> list;
     list.insFirst(10);
-    auto it = list.begin();
-    EXPECT_EQ(*it, 10);
-    list.insCurr(1);
-    EXPECT_EQ(*it, 10);
-}
+    list.insFirst(9);
+    list.insFirst(8);
 
+    list.reset();
+    list.goNext();
+}
+TEST(TList, can_get_curr_elements_in_list) {
+    TList<int> list;
+    list.insFirst(10);
+    list.reset();
+    EXPECT_EQ(list.getCurr(), 10);
+
+    list.insLast(1);
+    list.goNext();
+    EXPECT_EQ(list.getCurr(), 1);
+}
+TEST(TList, can_start_custom_iterator_in_list) {
+    TList<int> list;
+    list.insFirst(10);
+    list.insFirst(9);
+    list.reset();
+    list.goNext();
+    list.goNext();
+    EXPECT_TRUE(list.isEnd());
+    list.reset();
+    EXPECT_EQ(list.getCurr(), 9);
+
+}
+TEST(TList, can_iterate_with_curr_element_in_list) {
+    TList<int> list;
+    list.insFirst(10);
+    list.insFirst(9);
+    list.insFirst(8);
+    
+    list.reset();
+    EXPECT_EQ(list.getCurr(), 8);
+
+    list.goNext();
+    EXPECT_EQ(list.getCurr(), 9);
+
+    list.goNext();
+    EXPECT_EQ(list.getCurr(), 10);
+
+    list.goNext();
+    EXPECT_TRUE(list.isEnd());
+    
+    for ( list.reset(); !list.isEnd(); list.goNext() )
+    {
+        ASSERT_NO_THROW(list.getCurr());
+    }
+}
+TEST(TList, index_operator) {
+    TList<int> list;
+    list.insLast(10);
+    list.insLast(30);
+    list.insLast(20);
+    ASSERT_ANY_THROW(list[-1]);
+    ASSERT_ANY_THROW(list[4]);
+    EXPECT_EQ(list[0], 10);
+    EXPECT_EQ(list[1], 30);
+    EXPECT_EQ(list[2], 20);
+}
 TEST(TList, can_delete_element) {
     TList<int> list;
     list.insLast(10);

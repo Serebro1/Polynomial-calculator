@@ -1,18 +1,22 @@
 #pragma once
-#include "monom.h"
 #include "TList.h"
-
+#include <cmath>
 class Polinom : public TList<Monom> {
 	
 public:
 	Polinom() {};
 	Polinom(Monom* p, unsigned int size);
 	
-	void operator+=(Monom m);
+	void operator+=(const Monom m);
 	void operator*=(double c);
+	void operator*=(const Monom m);
+	void operator-=(const Monom m);
 	Polinom operator+(Polinom& p);
-	Polinom operator*(const Polinom& p);
-	Polinom operator*(const Monom& m);
+	Polinom operator*(Polinom& p);
+	Polinom operator-(Polinom& p);
+	Polinom operator-();
+
+	friend std::ostream& operator<<(std::ostream& out, const Polinom& p);
 };
 /*
 * Тесты добавления монома.

@@ -18,8 +18,8 @@ protected:
 public:
 	typedef ListIterator<T> iterator;
 
-	iterator begin() { return iterator(pFirst); };
-	iterator end() { return iterator(pLast->pNext); };
+	iterator begin() const { return iterator(pFirst); }; 
+	iterator end() const { return iterator(pLast->pNext); };
 
 	TList() : pFirst(nullptr), pPrev(nullptr), pCurr(nullptr), pLast(nullptr), sz(0) {};
 	TList(const TList& copy);
@@ -41,8 +41,8 @@ public:
 	bool operator!=(const TList& right) const;
 
 	T& operator[](int pos);
-	Node<T>* ToPos(int pos);
-	bool isEnd() { return pCurr == pLast; };
+
+	bool isEnd() { return pCurr == nullptr; };
 	void reset() { pCurr = pFirst; pPrev = nullptr; };
 	void goNext() { pPrev = pCurr;  pCurr = pCurr->pNext; };
 
@@ -66,7 +66,15 @@ public:
 template<class T>
 TList<T>::TList(const TList& copy)
 {
-	if (copy.pFirst == nullptr) return;
+	if (copy.pFirst == nullptr) {
+		pFirst = nullptr;
+		pPrev = nullptr;
+		pCurr = nullptr;
+		pLast = nullptr;
+		sz = 0;
+		return;
+	}
+
 
 	Node<T>* tmp = copy.pFirst;
 	pFirst = new Node<T>();
@@ -148,7 +156,7 @@ void TList<T>::clear()
 		delete tmp;
 	}
 	pCurr = nullptr;
-	pCurr = nullptr;
+	pPrev = nullptr;
 	pLast = nullptr;
 	sz = 0;
 }
@@ -185,21 +193,12 @@ bool TList<T>::operator!=(const TList& right) const
 template<class T>
 T& TList<T>::operator[](int pos)
 {
-	Node<T>* res = ToPos(pos);
-	return res->val;
-}
-
-template<class T>
-Node<T>* TList<T>::ToPos(int pos)
-{
-	Node<T>* tmp = pFirst;
-	int count = 0;
-	while (tmp != nullptr && count != pos) {
-		tmp = tmp->pNext;
-		count++;
-	}
-	if (tmp == nullptr) throw - 2; // Выход за список
-	return tmp;
+	if (pos < 0) throw std::out_of_range("Negative index is invalid.");
+	iterator it = begin();
+	int i = 0;
+	for (; it != end() && i < pos; ++it, ++i) {}
+	if (i == sz) throw std::out_of_range("Index out of bounds.");
+	return (*it);
 }
 
 template<class T>
@@ -281,10 +280,3 @@ void TList<T>::delLast()
 	pLast = tmp;
 	sz--;
 }
-/*
-Как реализовать доступ к элементам списка?
-У нас в классе есть указатели на начало и конец списка.
-1) Прогнать указатель на звенья от начало до конца
-2) Заведём дополнительно указатель на текущий элемент
-
-*/
