@@ -28,11 +28,13 @@ struct Monom {
 		unsigned int left = x * 100 + y * 10 + z;
 		unsigned int right = m.x * 100 + m.y * 10 + m.z;
 		if (left < right) return true;
-		if (left > right) return false;
 		return false;
 	};
 	bool operator>(const Monom& m) const {
-		return !(*this < m);
+		unsigned int left = x * 100 + y * 10 + z;
+		unsigned int right = m.x * 100 + m.y * 10 + m.z;
+		if (left > right) return true;
+		return false;
 	}
 	bool operator==(const Monom& m) const {
 		unsigned int left = x * 100 + y * 10 + z;

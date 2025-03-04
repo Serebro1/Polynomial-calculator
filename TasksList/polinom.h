@@ -11,6 +11,9 @@ public:
 	void operator*=(double c);
 	void operator*=(const Monom m);
 	void operator-=(const Monom m);
+	void operator+=(Polinom& p);
+	void operator*=(Polinom& p);
+	void operator-=(Polinom& p);
 	Polinom operator+(Polinom& p);
 	Polinom operator*(Polinom& p);
 	Polinom operator-(Polinom& p);
