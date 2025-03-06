@@ -7,8 +7,8 @@ public:
 	Polinom() {};
 	Polinom(Monom* p, unsigned int size);
 	
-	void operator+=(const Monom m);
 	void operator*=(double c);
+	void operator+=(const Monom m);
 	void operator*=(const Monom m);
 	void operator-=(const Monom m);
 	void operator+=(Polinom& p);

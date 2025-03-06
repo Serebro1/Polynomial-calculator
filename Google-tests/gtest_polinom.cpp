@@ -139,15 +139,15 @@ TEST(Polinom, simple_plus_polinoms) {
 	ASSERT_NO_THROW(res = p1 + p2);
 	auto it = res.begin();
 	res += Monom(2.5, 1, 2, 3);
-	EXPECT_EQ(*(it), Monom(5, 1, 2, 3));
-	++it;
 	EXPECT_EQ(*(it), Monom(1.5, 1, 3, 1));
+	++it;
+	EXPECT_EQ(*(it), Monom(5, 1, 2, 3));
 }
 TEST(Polinom, plus_negative_polinoms) {
 	Polinom p1;
 	Polinom p2;
-	p1 -= Monom(2.5, 1, 2, 3);
-	p2 -= Monom(1.5, 1, 3, 1);
+	p1 += Monom(-2.5, 1, 2, 3);
+	p2 += Monom(-1.5, 1, 3, 1);
 	Polinom res;
 
 	ASSERT_NO_THROW(res = p1 + p2);

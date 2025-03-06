@@ -130,9 +130,8 @@ Polinom Polinom::operator+(Polinom& p)
 	Polinom res(*this);
 	res.reset();
 	p.reset();
-	while (!isEnd() && !p.isEnd()) {
+	while (!res.isEnd() && !p.isEnd()) {
 		if (res.pCurr->val > p.pCurr->val) {
-			res.insCurr(pCurr->val);
 			res.goNext();
 		}
 		else if (res.pCurr->val < p.pCurr->val) {
@@ -174,37 +173,33 @@ Polinom Polinom::operator*(Polinom& p) // ask about perfomance
 
 Polinom Polinom::operator-(Polinom& p)
 {
-	Polinom res;
-	if (pFirst == nullptr) return res = -p;
-	if (p.pFirst == nullptr) return *this;
-	iterator it = begin();
-	iterator pit = p.begin();
-	while (it != end() && pit != p.end()) {
-		if (*it == *pit) {
-			res -= *pit;
-			res += *it;
-			++it;
-			++pit;
-			continue;
+	Polinom res(*this);
+	res.reset();
+	p.reset();
+	while (!res.isEnd() && !p.isEnd()) {
+		if (res.pCurr->val > p.pCurr->val) {
+			res.goNext();
 		}
-		if (*it < *pit) {
-			res -= *pit;
-			++pit;
-			continue;
+		else if (res.pCurr->val < p.pCurr->val) {
+			res.insCurr(-p.pCurr->val);
+			p.goNext();
 		}
-		if (*pit < *it) {
-			res += *it;
-			++it;
-			continue;
+		else {
+			Monom m(p.pCurr->val);
+			m.coeff -= res.pCurr->val.coeff;
+			if (m.coeff == 0.0) {
+				res.delCurr();
+			}
+			else {
+				res.pCurr->val.coeff = m.coeff;
+				res.goNext();
+			}
+			p.goNext();
 		}
 	}
-	while (it != end()) {
-		res += *it;
-		++it;
-	}
-	while (pit != p.end()) {
-		res -= *pit;
-		++pit;
+	while (!p.isEnd()) {
+		res.insLast(-p.pCurr->val);
+		p.goNext();
 	}
 	return res;
 }
@@ -213,7 +208,7 @@ Polinom Polinom::operator-()
 {
 	Polinom res;
 	if (pFirst == nullptr) return res;
-	for (const Monom& m : *this) {
+	for (Monom& m : *this) {
 		res += (-m);
 	}
 	return res;
