@@ -15,6 +15,14 @@ Polinom::Polinom(Monom* p, unsigned int size)
 	}
 }
 
+void Polinom::operator*=(double val)
+{
+	if (val == 0.0) { clear(); }
+	for (Monom& m : *this) {
+		m.coeff *= val;
+	}
+}
+
 void Polinom::operator+=(const Monom m)
 {
 	if (m.coeff == 0) return;
@@ -45,21 +53,11 @@ void Polinom::operator+=(const Monom m)
 	}
 }
 
-void Polinom::operator*=(double val)
-{
-	if (val == 0.0) { clear(); } // удаляет все звенья списка
-	iterator it = begin();
-	for (it = begin(); it != end(); ++it)
-		(*it).coeff *= val;
-}
-
 void Polinom::operator*=(const Monom m)
 {
 	if (m.coeff == 0.0) { clear(); return; }
-	iterator it = begin();
-	while (it != end()) {
-		(*it) *= m; 
-		++it;
+	for (Monom& elem : *this) {
+		elem *= m;
 	}
 }
 
@@ -121,10 +119,111 @@ void Polinom::operator+=(Polinom& p)
 }
 void Polinom::operator*=(Polinom& p)
 {
+	if (p.pFirst == nullptr) return;
+	for (Monom& m : p) {
+		*this *= m;
+	}
 }
 void Polinom::operator-=(Polinom& p)
 {
+	reset();
+	p.reset();
+	while (!isEnd() && !p.isEnd()) {
+		if (pCurr->val > p.pCurr->val) {
+			goNext();
+		}
+		else if (pCurr->val < p.pCurr->val) {
+			insCurr(-p.pCurr->val);
+			p.goNext();
+		}
+		else {
+			Monom m(-p.pCurr->val);
+			m.coeff += pCurr->val.coeff;
+			if (m.coeff == 0.0) {
+				delCurr();
+			}
+			else {
+				pCurr->val.coeff = m.coeff;
+				goNext();
+			}
+			p.goNext();
+		}
+	}
 }
+
+Polinom Polinom::operator+(const Monom& m)
+{
+	Polinom res(*this);
+	if (m.coeff == 0) return;
+	if (res.pFirst == nullptr || res.pFirst->val < m) {
+		res.insFirst(m);
+		return res;
+	}
+	if (m < res.pLast->val) {
+		res.insLast(m);
+		return res;
+	}
+	for (res.reset(); !res.isEnd(); res.goNext())
+	{
+		Monom src = res.pCurr->val;
+		if (src < m) {
+			res.insCurr(m);
+			return res;
+		}
+		if (src == m) {
+			double tmpCoeff = src.coeff + m.coeff;
+			if (tmpCoeff != 0)
+				res.pCurr->val.coeff = tmpCoeff;
+			else {
+				res.delCurr();
+			}
+			return res;
+		}
+	}
+}
+
+Polinom Polinom::operator*(const Monom& m)
+{
+	Polinom res;
+	if (m.coeff == 0) return res;
+	res = *this;
+	for (Monom& elem : res) {
+		elem *= m;
+	}
+	return res;
+}
+
+Polinom Polinom::operator-(const Monom& m)
+{
+	Polinom res(*this);
+	if (m.coeff == 0) return;
+	if (res.pFirst == nullptr || res.pFirst->val < m) {
+		res.insFirst(-m);
+		return res;
+	}
+	if (m < res.pLast->val) {
+		res.insLast(-m);
+		return res;
+	}
+	for (res.reset(); !res.isEnd(); res.goNext())
+	{
+		Monom src = res.pCurr->val;
+		if (src < m) {
+			res.insCurr(-m);
+			return res;
+		}
+		if (src == m) {
+			double tmpCoeff = src.coeff - m.coeff;
+			if (tmpCoeff != 0)
+				res.pCurr->val.coeff = tmpCoeff;
+			else {
+				res.delCurr();
+			}
+			return res;
+		}
+	}
+}
+
 Polinom Polinom::operator+(Polinom& p)
 {
 	Polinom res(*this);
@@ -158,15 +257,13 @@ Polinom Polinom::operator+(Polinom& p)
 	return res;
 }
 
-Polinom Polinom::operator*(Polinom& p) // ask about perfomance
+Polinom Polinom::operator*(Polinom& p)
 {
 	Polinom res;
 	if (pFirst == nullptr || p.pFirst == nullptr) return res;
-
-	for (Monom& m1 : *this) {
-		for (Monom& m2 : p) {
-			res += (m1 * m2);
-		}
+	res = *this;
+	for (Monom& m : p) {
+		res *= p;
 	}
 	return res;
 }
@@ -191,7 +288,7 @@ Polinom Polinom::operator-(Polinom& p)
 				res.delCurr();
 			}
 			else {
-				res.pCurr->val.coeff = m.coeff;
+				res.pCurr->val.coeff = -m.coeff;
 				res.goNext();
 			}
 			p.goNext();
@@ -206,10 +303,10 @@ Polinom Polinom::operator-(Polinom& p)
 
 Polinom Polinom::operator-()
 {
-	Polinom res;
-	if (pFirst == nullptr) return res;
-	for (Monom& m : *this) {
-		res += (-m);
+	Polinom res(*this);
+	if (res.pFirst == nullptr) return res;
+	for (Monom& m : res) {
+		m = -m;
 	}
 	return res;
 }
@@ -218,13 +315,11 @@ std::ostream& operator<<(std::ostream& out, const Polinom& p)
 {
 	if (p.pFirst == nullptr) return out;
 	out << p.pFirst->val;
-	auto it = p.begin();
-	++it;
-	for (;it != p.end(); ++it)
+	for (auto it = std::next(p.begin()); it != p.end(); ++it)
 	{
 		out << (it->coeff < 0.0 ? " - " : " + ");
 		Monom tmp = *it;
-		tmp.coeff = abs(tmp.coeff);
+		tmp.coeff = std::abs(tmp.coeff);
 		out << tmp;
 	}
 }

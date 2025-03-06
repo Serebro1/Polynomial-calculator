@@ -1,6 +1,5 @@
 #pragma once
 #include "TList.h"
-#include <cmath>
 class Polinom : public TList<Monom> {
 	
 public:
@@ -14,6 +13,10 @@ public:
 	void operator+=(Polinom& p);
 	void operator*=(Polinom& p);
 	void operator-=(Polinom& p);
+
+	Polinom operator+(const Monom& m);
+	Polinom operator*(const Monom& m);
+	Polinom operator-(const Monom& m);
 	Polinom operator+(Polinom& p);
 	Polinom operator*(Polinom& p);
 	Polinom operator-(Polinom& p);

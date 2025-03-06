@@ -42,6 +42,9 @@ struct Monom {
 		if (left == right) return true;
 		return false;
 	}
+	bool operator!=(const Monom& m) const {
+		return !(*this == m);
+	}
 	friend std::ostream& operator<<(std::ostream& out, const Monom& m) {
 		out << m.coeff;
 		if (m.x != 0) out << "*x^" << m.x;
