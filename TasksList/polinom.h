@@ -10,19 +10,19 @@ public:
 	void operator+=(const Monom m);
 	void operator*=(const Monom m);
 	void operator-=(const Monom m);
-	void operator+=(Polinom& p);
-	void operator*=(Polinom& p);
-	void operator-=(Polinom& p);
+	void operator+=(Polinom p);
+	void operator*=(Polinom p);
+	void operator-=(Polinom p);
 
 	Polinom operator+(const Monom& m);
 	Polinom operator*(const Monom& m);
 	Polinom operator-(const Monom& m);
-	Polinom operator+(Polinom& p);
-	Polinom operator*(Polinom& p);
-	Polinom operator-(Polinom& p);
+	Polinom operator+(Polinom p);
+	Polinom operator*(Polinom p);
+	Polinom operator-(Polinom p);
 	Polinom operator-();
 
-	friend std::ostream& operator<<(std::ostream& out, const Polinom& p);
+	friend std::ostream& operator<<(std::ostream& out, Polinom p);
 };
 /*
 * Тесты добавления монома.

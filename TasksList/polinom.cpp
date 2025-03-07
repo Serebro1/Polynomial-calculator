@@ -91,7 +91,7 @@ void Polinom::operator-=(const Monom m)
 	}
 }
 // Practice
-void Polinom::operator+=(Polinom& p)
+void Polinom::operator+=(Polinom p)
 {
 	reset();
 	p.reset();
@@ -117,14 +117,14 @@ void Polinom::operator+=(Polinom& p)
 		}
 	}
 }
-void Polinom::operator*=(Polinom& p)
+void Polinom::operator*=(Polinom p)
 {
 	if (p.pFirst == nullptr) return;
 	for (Monom& m : p) {
 		*this *= m;
 	}
 }
-void Polinom::operator-=(Polinom& p)
+void Polinom::operator-=(Polinom p)
 {
 	reset();
 	p.reset();
@@ -154,7 +154,7 @@ void Polinom::operator-=(Polinom& p)
 Polinom Polinom::operator+(const Monom& m)
 {
 	Polinom res(*this);
-	if (m.coeff == 0) return;
+	if (m.coeff == 0) return res;
 	if (res.pFirst == nullptr || res.pFirst->val < m) {
 		res.insFirst(m);
 		return res;
@@ -196,7 +196,7 @@ Polinom Polinom::operator*(const Monom& m)
 Polinom Polinom::operator-(const Monom& m)
 {
 	Polinom res(*this);
-	if (m.coeff == 0) return;
+	if (m.coeff == 0) return res;
 	if (res.pFirst == nullptr || res.pFirst->val < m) {
 		res.insFirst(-m);
 		return res;
@@ -224,7 +224,7 @@ Polinom Polinom::operator-(const Monom& m)
 	}
 }
 
-Polinom Polinom::operator+(Polinom& p)
+Polinom Polinom::operator+(Polinom p)
 {
 	Polinom res(*this);
 	res.reset();
@@ -257,7 +257,7 @@ Polinom Polinom::operator+(Polinom& p)
 	return res;
 }
 
-Polinom Polinom::operator*(Polinom& p)
+Polinom Polinom::operator*(Polinom p)
 {
 	Polinom res;
 	if (pFirst == nullptr || p.pFirst == nullptr) return res;
@@ -268,7 +268,7 @@ Polinom Polinom::operator*(Polinom& p)
 	return res;
 }
 
-Polinom Polinom::operator-(Polinom& p)
+Polinom Polinom::operator-(Polinom p)
 {
 	Polinom res(*this);
 	res.reset();
@@ -311,7 +311,7 @@ Polinom Polinom::operator-()
 	return res;
 }
 
-std::ostream& operator<<(std::ostream& out, const Polinom& p)
+std::ostream& operator<<(std::ostream& out, Polinom p)
 {
 	if (p.pFirst == nullptr) return out;
 	out << p.pFirst->val;

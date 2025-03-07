@@ -18,8 +18,8 @@ protected:
 public:
 	typedef ListIterator<T> iterator;
 
-	iterator begin() const { return iterator(pFirst); }; 
-	iterator end() const { return iterator(pLast->pNext); };
+	iterator begin() { return iterator(pFirst); }; 
+	iterator end() { return iterator(pLast->pNext); };
 
 	TList() : pFirst(nullptr), pPrev(nullptr), pCurr(nullptr), pLast(nullptr), sz(0) {};
 	TList(const TList& copy);
@@ -46,10 +46,10 @@ public:
 	void reset() { pCurr = pFirst; pPrev = nullptr; };
 	void goNext() { pPrev = pCurr;  pCurr = pCurr->pNext; };
 
-	T getCurr() { return pCurr->val; }
+	T getCurr() const { return pCurr->val; }
 
 	void insFirst(const T& value);
-	void insCurr(T el); // указатели pCurr и pPrev указывают на нужное место
+	void insCurr(T el);
 	void insLast(const T& value);
 
 	void delFirst();

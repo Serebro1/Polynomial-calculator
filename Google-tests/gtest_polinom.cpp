@@ -123,13 +123,13 @@ TEST_F(PolinomTest, operator_minus_assigment_delete_left_monom) {
 	EXPECT_EQ(*(p.begin()), Monom(-3.0, 1, 1, 1));
 	EXPECT_EQ(p.size(), 2);
 }
-TEST_F(PolinomTest, operator_plus_assigment_delete_right_monom) {
+TEST_F(PolinomTest, operator_minus_assigment_delete_right_monom) {
 	p -= Monom(2.0, 0, 1, 2);
 	EXPECT_NE(*(p.end()), Monom(2.0, 1, 2, 3));
 	EXPECT_EQ(*(p.end()), Monom(-3.0, 1, 1, 1));
 	EXPECT_EQ(p.size(), 2);
 }
-TEST_F(PolinomTest, operator_plus_assigment_delete_central_monom) {
+TEST_F(PolinomTest, operator_minus_assigment_delete_central_monom) {
 	p -= Monom(-3.0, 1, 1, 1);
 	EXPECT_NE(p[1], Monom(-3.0, 1, 1, 1));
 	EXPECT_EQ(p[1], Monom(2.0, 0, 1, 2));
@@ -137,7 +137,40 @@ TEST_F(PolinomTest, operator_plus_assigment_delete_central_monom) {
 }
 //----------------------------------------------------------------------------------------
 // plus assigment polinom
-
+TEST_F(PolinomTest, can_use_operator_plus_assigment_polinom) {
+	Polinom p1;
+	p1 += Monom(3.5, 0, 1, 0);
+	ASSERT_NO_THROW(p1 += p);
+	ASSERT_EQ(p1.size(), 4);
+}
+TEST_F(PolinomTest, operator_plus_assigment_null_polinom) {
+	Polinom p1;
+	ASSERT_NO_THROW(p += p1);
+}
+TEST_F(PolinomTest, operator_plus_assigment_negative_monom) {
+	Polinom p1;
+	p1 += Monom(-1.5, 1, 2, 3);
+	ASSERT_NO_THROW(p1 += p);
+	EXPECT_EQ(*(p.begin()), Monom(0.5, 1, 2, 3));
+}
+TEST_F(PolinomTest, operator_plus_assigment_polinoms_delete_left_monom) {
+	p += Monom(-2.0, 1, 2, 3);
+	EXPECT_NE(*(p.begin()), Monom(2.0, 1, 2, 3));
+	EXPECT_EQ(*(p.begin()), Monom(-3.0, 1, 1, 1));
+	EXPECT_EQ(p.size(), 2);
+}
+TEST_F(PolinomTest, operator_plus_assigment_polinoms_delete_right_monom) {
+	p += Monom(-2.0, 0, 1, 2);
+	EXPECT_NE(*(p.end()), Monom(2.0, 1, 2, 3));
+	EXPECT_EQ(*(p.end()), Monom(-3.0, 1, 1, 1));
+	EXPECT_EQ(p.size(), 2);
+}
+TEST_F(PolinomTest, operator_plus_assigment_polinoms_delete_central_monom) {
+	p += Monom(3.0, 1, 1, 1);
+	EXPECT_NE(p[1], Monom(-3.0, 1, 1, 1));
+	EXPECT_EQ(p[1], Monom(2.0, 0, 1, 2));
+	EXPECT_EQ(p.size(), 2);
+}
 //----------------------------------------------------------------------------------------
 // polinom + polinom
 TEST(Polinom, empty_plus_empty) {
@@ -149,13 +182,10 @@ TEST(Polinom, empty_plus_empty) {
 	ASSERT_NO_THROW(res = p1 + p2);
 	EXPECT_TRUE(res.isEmpty());
 }
-TEST(Polinom, empty_plus_polinom) {
-	Polinom p1;
-	p1 += Monom(2.5, 1, 3, 1);
+TEST_F(PolinomTest, empty_plus_polinom) {
 	Polinom p2;
 	Polinom res;
-	ASSERT_NO_THROW(res = p1 + p2);
-	EXPECT_EQ(*(p1.begin()), Monom(2.5, 1, 3, 1));
+	ASSERT_NO_THROW(res = p + p2);
 }
 TEST_F(PolinomTest, polinom_plus_negative_polinom_that_are_equal) {
 
