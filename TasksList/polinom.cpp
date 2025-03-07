@@ -55,6 +55,7 @@ void Polinom::operator+=(const Monom m)
 
 void Polinom::operator*=(const Monom m)
 {
+	//if (pFirst == nullptr) return;
 	if (m.coeff == 0.0) { clear(); return; }
 	for (Monom& elem : *this) {
 		elem *= m;
@@ -116,10 +117,15 @@ void Polinom::operator+=(Polinom p)
 			p.goNext();
 		}
 	}
+	while (!p.isEnd()) {
+		insLast(p.pCurr->val);
+		p.goNext();
+	}
 }
 void Polinom::operator*=(Polinom p)
 {
-	if (p.pFirst == nullptr) return;
+	if (pFirst == nullptr) return;
+	if (p.pFirst == nullptr) { clear();  return; }
 	for (Monom& m : p) {
 		*this *= m;
 	}
@@ -148,6 +154,10 @@ void Polinom::operator-=(Polinom p)
 			}
 			p.goNext();
 		}
+	}
+	while (!p.isEnd()) {
+		insLast(-p.pCurr->val);
+		p.goNext();
 	}
 }
 
