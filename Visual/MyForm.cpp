@@ -3,13 +3,13 @@
 #include "../TasksList/polinom.h"
 using namespace System;
 using namespace System::Windows::Forms;
-
+using namespace Visual;
 [STAThread]
 void Main(array<String^>^ args)
 {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
 
-	Visual::MyForm form;
-	Application::Run(% form);
+	MyForm^ form = gcnew MyForm();
+	Application::Run(form);
 }
