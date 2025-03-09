@@ -39,6 +39,18 @@ std::vector<std::string> Model::getStrPolinoms()
 	return res;
 }
 
+void Model::addPolinom(const Polinom& p)
+{
+	polinoms.push_back(p);
+}
+
+void Model::removePolinom(int index)
+{
+	if (index >= 0 && index < polinoms.size()) {
+		polinoms.erase(polinoms.begin() + index);
+	}
+}
+
 void Model::clearPolinoms()
 {
 	polinoms.clear();

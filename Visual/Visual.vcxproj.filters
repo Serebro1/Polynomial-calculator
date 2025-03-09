@@ -47,5 +47,8 @@
     <ClInclude Include="..\TasksList\polinom.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="..\TasksList\polinomParser.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <regex>
 struct Monom {
 	double coeff;
 	int x, y, z;
@@ -57,4 +58,5 @@ struct Monom {
 		in >> m.coeff >> m.x >> m.y >> m.z;
 		return in;
 	};
+
 };

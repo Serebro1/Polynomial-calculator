@@ -31,3 +31,18 @@ void Visual::AddMonom::CheckForSmartDocking()
 	}
 
 }
+
+System::Void Visual::AddMonom::AddMonom_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e)
+{
+	return System::Void();
+}
+
+System::Void Visual::AddMonom::btnSave_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	return System::Void();
+}
+
+System::Void Visual::AddMonom::btnCancel_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	return System::Void();
+}

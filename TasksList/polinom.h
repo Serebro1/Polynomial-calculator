@@ -5,7 +5,8 @@ class Polinom : public TList<Monom> {
 public:
 	Polinom() {};
 	Polinom(Monom* p, unsigned int size);
-	
+	Polinom(const std::vector<Monom>& monoms);
+
 	void operator*=(double c);
 	void operator+=(const Monom m);
 	void operator*=(const Monom m);

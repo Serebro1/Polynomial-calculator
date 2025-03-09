@@ -7,6 +7,14 @@ Polinom::Polinom(Monom* p, unsigned int size)
 	}
 }
 
+Polinom::Polinom(const std::vector<Monom>& monoms)
+{
+	for (const Monom& m : monoms)
+	{
+		*this += m;
+	}
+}
+
 void Polinom::operator*=(double val)
 {
 	if (val == 0.0) { clear(); }

@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="..\TasksList\Model.h" />
     <ClInclude Include="..\TasksList\polinom.h" />
+    <ClInclude Include="..\TasksList\polinomParser.h" />
     <ClInclude Include="AddMonom.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -136,7 +137,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="PolinomCalculator.h">
-      <FileType>CppForm</FileType>
+      <FileType>CppHeader</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

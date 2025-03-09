@@ -18,9 +18,13 @@ namespace Visual {
 	{
 	private:
 		Model& model;
-		static MyForm^ _instance = nullptr;
-		void LoadDataToListBox();
-		
+	private: System::Windows::Forms::ContextMenuStrip^ polinomCMStrip;
+
+	private: System::Windows::Forms::ToolStripMenuItem^ copyPolyToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ deletePolyToolStripMenuItem;
+		   static MyForm^ _instance = nullptr;
+		void UpdateListBox();
+		Polinom parsePolinom(const std::string& input);
 	public:
 		static property MyForm^ Instance {
 			MyForm^ get() { return _instance; }
@@ -35,7 +39,13 @@ namespace Visual {
 			//TODO: добавьте код конструктора
 			//
 		}
+		property System::Windows::Forms::ListBox^ MainListBox {
+			System::Windows::Forms::ListBox^ get() { return this->polinomListBox; }
+		}
 
+		void RefreshListBox() {
+			UpdateListBox();
+		}
 	protected:
 		/// <summary>
 		/// Освободить все используемые ресурсы.
@@ -90,6 +100,7 @@ namespace Visual {
 	private: System::Windows::Forms::Button^ addPolinombutton;
 
 	private: System::Windows::Forms::Button^ calculatorButton;
+	private: System::ComponentModel::IContainer^ components;
 
 
 
@@ -116,7 +127,7 @@ namespace Visual {
 		/// <summary>
 		/// Обязательная переменная конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -125,6 +136,7 @@ namespace Visual {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			this->splitContainer1 = (gcnew System::Windows::Forms::SplitContainer());
 			this->monomTLPanel = (gcnew System::Windows::Forms::TableLayoutPanel());
 			this->monomLabel = (gcnew System::Windows::Forms::Label());
@@ -145,6 +157,9 @@ namespace Visual {
 			this->calculatorButton = (gcnew System::Windows::Forms::Button());
 			this->historyGBox = (gcnew System::Windows::Forms::GroupBox());
 			this->polinomListBox = (gcnew System::Windows::Forms::ListBox());
+			this->polinomCMStrip = (gcnew System::Windows::Forms::ContextMenuStrip(this->components));
+			this->copyPolyToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->deletePolyToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->splitContainer1))->BeginInit();
 			this->splitContainer1->Panel1->SuspendLayout();
 			this->splitContainer1->Panel2->SuspendLayout();
@@ -156,6 +171,7 @@ namespace Visual {
 			this->splitContainer2->SuspendLayout();
 			this->polinomTLPanel->SuspendLayout();
 			this->historyGBox->SuspendLayout();
+			this->polinomCMStrip->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// splitContainer1
@@ -414,6 +430,7 @@ namespace Visual {
 			this->polinomTLPanel->SetRowSpan(this->polinomTBox, 4);
 			this->polinomTBox->Size = System::Drawing::Size(204, 111);
 			this->polinomTBox->TabIndex = 1;
+			this->polinomTBox->Text = L"4.5*x^4 + 1.2 * z ^ 2 + 2.1 * y^1";
 			// 
 			// addPolinombutton
 			// 
@@ -458,6 +475,7 @@ namespace Visual {
 			// 
 			// polinomListBox
 			// 
+			this->polinomListBox->ContextMenuStrip = this->polinomCMStrip;
 			this->polinomListBox->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->polinomListBox->Font = (gcnew System::Drawing::Font(L"Arial", 10, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
@@ -468,6 +486,31 @@ namespace Visual {
 			this->polinomListBox->Name = L"polinomListBox";
 			this->polinomListBox->Size = System::Drawing::Size(531, 572);
 			this->polinomListBox->TabIndex = 0;
+			this->polinomListBox->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &MyForm::polinomListBox_MouseDown);
+			// 
+			// polinomCMStrip
+			// 
+			this->polinomCMStrip->ImageScalingSize = System::Drawing::Size(20, 20);
+			this->polinomCMStrip->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->copyPolyToolStripMenuItem,
+					this->deletePolyToolStripMenuItem
+			});
+			this->polinomCMStrip->Name = L"polyCMStrip";
+			this->polinomCMStrip->Size = System::Drawing::Size(156, 52);
+			// 
+			// copyPolyToolStripMenuItem
+			// 
+			this->copyPolyToolStripMenuItem->Name = L"copyPolyToolStripMenuItem";
+			this->copyPolyToolStripMenuItem->Size = System::Drawing::Size(210, 24);
+			this->copyPolyToolStripMenuItem->Text = L"Copy poly";
+			this->copyPolyToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::copyPolyToolStripMenuItem_Click);
+			// 
+			// deletePolyToolStripMenuItem
+			// 
+			this->deletePolyToolStripMenuItem->Name = L"deletePolyToolStripMenuItem";
+			this->deletePolyToolStripMenuItem->Size = System::Drawing::Size(210, 24);
+			this->deletePolyToolStripMenuItem->Text = L"Delete poly";
+			this->deletePolyToolStripMenuItem->Click += gcnew System::EventHandler(this, &MyForm::deletePolyToolStripMenuItem_Click);
 			// 
 			// MyForm
 			// 
@@ -495,6 +538,7 @@ namespace Visual {
 			this->polinomTLPanel->ResumeLayout(false);
 			this->polinomTLPanel->PerformLayout();
 			this->historyGBox->ResumeLayout(false);
+			this->polinomCMStrip->ResumeLayout(false);
 			this->ResumeLayout(false);
 
 		}
@@ -502,10 +546,13 @@ namespace Visual {
 	private: System::Void addMonomButton_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void calculatorButton_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void MyForm_Load(System::Object^ sender, System::EventArgs^ e) {
-	LoadDataToListBox();
+	UpdateListBox();
 }
 private: System::Void addPolinombutton_Click(System::Object^ sender, System::EventArgs^ e);
 	
 
+private: System::Void copyPolyToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void deletePolyToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void polinomListBox_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
 };
 }

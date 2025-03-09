@@ -1,5 +1,6 @@
 #pragma once
 #include <stdlib.h>
+#include "../TasksList/Model.h"
 namespace Visual {
 
 	using namespace System;
@@ -18,9 +19,11 @@ namespace Visual {
 		static AddMonom^ instance = nullptr;
 		static const int MY_WM_ENTERSIZEMOVE = 0x0231;
 		static const int MY_WM_MOVING = 0x0216;
+		std::vector<Polinom>* buffer;
 		AddMonom(void)
 		{
 			InitializeComponent();
+			buffer = new std::vector<Polinom>(Model::getInstance().getPolinoms());
 			//
 			//TODO: добавьте код конструктора
 			//
@@ -28,8 +31,10 @@ namespace Visual {
 	public:
 		static property AddMonom^ Instance {
 			AddMonom^ get() {
-				if (instance == nullptr || instance->IsDisposed)
+				if (instance == nullptr || instance->IsDisposed) {
 					instance = gcnew AddMonom();
+					
+				}
 				return instance;
 			}
 		}
@@ -39,6 +44,13 @@ namespace Visual {
 		/// </summary>
 		~AddMonom()
 		{
+			this->!AddMonom();
+		}
+		!AddMonom() {
+			if (buffer != nullptr) {
+				delete buffer;
+				buffer = nullptr;
+			}
 			if (components)
 			{
 				delete components;
@@ -123,6 +135,7 @@ namespace Visual {
 			this->btnCancel->TabIndex = 1;
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->UseVisualStyleBackColor = false;
+			this->btnCancel->Click += gcnew System::EventHandler(this, &AddMonom::btnCancel_Click);
 			// 
 			// btnSave
 			// 
@@ -135,6 +148,7 @@ namespace Visual {
 			this->btnSave->TabIndex = 2;
 			this->btnSave->Text = L"Save";
 			this->btnSave->UseVisualStyleBackColor = false;
+			this->btnSave->Click += gcnew System::EventHandler(this, &AddMonom::btnSave_Click);
 			// 
 			// addMonomTLPanel
 			// 
@@ -197,6 +211,7 @@ namespace Visual {
 		bool isAttached = false;
 		Form^ parentForm = nullptr;
 		Point lastManualLocation;
+		
 	protected:
 		virtual void WndProc(Message% m) override {
 			if (m.Msg == MY_WM_ENTERSIZEMOVE && isAttached) {
@@ -274,7 +289,8 @@ namespace Visual {
 		}
 
 		
-	private: System::Void AddMonom_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
-	}
+	private: System::Void AddMonom_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e);
+	private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }

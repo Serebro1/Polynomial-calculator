@@ -137,6 +137,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="monom.h" />
     <ClInclude Include="polinom.h" />
+    <ClInclude Include="polinomParser.h" />
     <ClInclude Include="TList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
