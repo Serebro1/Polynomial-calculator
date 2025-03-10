@@ -34,10 +34,10 @@ Polinom Visual::MyForm::parsePolinom(const std::string& input)
 	Polinom res;
 	std::string cleaned = model.parser.cleanInput(input);
 	if (cleaned.empty()) {
-		throw std::invalid_argument("Введена пустая строка!");
+		throw std::invalid_argument("Entered empty line!");
 	}
 	if (!model.parser.validateInput(cleaned)) {
-		throw std::invalid_argument("Недопустимые символы в полиноме!");
+		throw std::invalid_argument("Invalid symbols in polynomial!");
 	}
 	std::vector<std::string> monomsStr = model.parser.splitMonomials(cleaned);
 	std::vector<Monom> monoms;
@@ -52,10 +52,16 @@ System::Void Visual::MyForm::addMonomButton_Click(System::Object^ sender, System
 {
 	try
 	{
-		String^ input = coeffTBox->Text + 
-			"*x^" + xTBox->Text +
-			"*y^" + yTBox->Text +
-			"*z^" + zTBox->Text;
+		String^ input = "";
+		String^ coeffStr = coeffTBox->Text;
+
+		input = String::Format("{0}{1}{2}{3}",
+			coeffStr,
+			(String::IsNullOrEmpty(xTBox->Text) || xTBox->Text == "0") ? "" : "x^" + xTBox->Text,
+			(String::IsNullOrEmpty(yTBox->Text) || yTBox->Text == "0") ? "" : "y^" + yTBox->Text,
+			(String::IsNullOrEmpty(zTBox->Text) || zTBox->Text == "0") ? "" : "z^" + zTBox->Text
+		);
+
 		std::string monomStr = msclr::interop::marshal_as<std::string>(input);
 		model.setMonom(model.parser.parseMonomial(monomStr));
 
@@ -70,7 +76,7 @@ System::Void Visual::MyForm::addMonomButton_Click(System::Object^ sender, System
 	catch (const std::exception& ex)
 	{
 		String^ errorMsg = gcnew String(ex.what());
-		MessageBox::Show(errorMsg, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		MessageBox::Show(errorMsg, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 	}
 	
 }
@@ -99,7 +105,7 @@ System::Void Visual::MyForm::addPolinombutton_Click(System::Object^ sender, Syst
 	catch (const std::exception& ex)
 	{
 		String^ errorMsg = gcnew String(ex.what());
-		MessageBox::Show(errorMsg, "Ошибка", MessageBoxButtons::OK, MessageBoxIcon::Error);
+		MessageBox::Show(errorMsg, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
 	}
 	
 

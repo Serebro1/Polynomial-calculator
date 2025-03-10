@@ -21,12 +21,14 @@ namespace Visual {
 		static const int MY_WM_MOVING = 0x0216;
 		std::vector<Polinom>* buffer;
 		Monom* currMonom;
-
+		void UpdateTable();
+		void UpdateLBWithBuffer();
 		AddMonom(void)
 		{
 			InitializeComponent();
 			buffer = new std::vector<Polinom>(Model::getInstance().getPolinoms());
 			currMonom = new Monom(Model::getInstance().getMonom());
+			UpdateTable();
 			//
 			//TODO: добавьте код конструктора
 			//
@@ -292,8 +294,7 @@ namespace Visual {
 				abs(this->Top - parentForm->Bottom) < 20);
 		}
 
-		void UpdateTable();
-		void UpdateLBWithBuffer();
+		
 
 	private: System::Void AddMonom_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e);
 	private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e);

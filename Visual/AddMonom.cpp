@@ -71,6 +71,7 @@ void Visual::AddMonom::UpdateTable()
 void Visual::AddMonom::UpdateLBWithBuffer()
 {
     auto mainLB = MyForm::Instance->MainListBox;
+    mainLB->Items->Clear();
     for (size_t i = 0; i < buffer->size(); ++i) {
         String^ item = gcnew String(
             (std::to_string(i) + ": " + Model::getInstance().getStrPoly((*buffer)[i])).c_str()

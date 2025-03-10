@@ -35,14 +35,14 @@ public:
 
     Monom parseMonomial(const std::string& monomialStr) {
         Monom monomial;
-        std::regex monomialRegex(R"(([+-]?\d+\.?\d*)(?:\*?([xyz]\^\d+))*)");
+        std::regex monomialRegex(R"(([+-]?\d+\.?\d*)(?:\*?([xyz]\^?\d+))*)");
         std::smatch match;
 
         if (std::regex_match(monomialStr, match, monomialRegex)) {
 
             monomial.coeff = std::stod(match[1].str());
 
-            std::regex varRegex(R"(([xyz])\^(\d+))");
+            std::regex varRegex(R"(([xyz])\^?(\d+))");
             auto varsBegin = std::sregex_iterator(monomialStr.begin(), monomialStr.end(), varRegex);
             auto varsEnd = std::sregex_iterator();
 
@@ -66,9 +66,9 @@ public:
     }
 
     bool validateInput(const std::string& input) {
-        std::regex validCharsRegex(R"(^[+-]?(\d+\.?\d*)?(\*?[xyz]\^\d+)*([+-](\d+\.?\d*)?(\*?[xyz]\^\d+)*)*$)");
+        std::regex validCharsRegex(R"(^[+-]?(\d+\.?\d*)?(\*?[xyz]\^?\d+)*([+-](\d+\.?\d*)?(\*?[xyz]\^?\d+)*)*$)");
         if (!std::regex_match(input, validCharsRegex)) {
-            throw std::invalid_argument("Некорректный формат полинома!");
+            throw std::invalid_argument("Invalid polynomial format!");
         }
         return true;
     }

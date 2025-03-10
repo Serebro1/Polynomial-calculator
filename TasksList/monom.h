@@ -48,9 +48,24 @@ struct Monom {
 	}
 	friend std::ostream& operator<<(std::ostream& out, const Monom& m) {
 		out << m.coeff;
-		if (m.x != 0) out << "*x^" << m.x;
-		if (m.y != 0) out << "*y^" << m.y;
-		if (m.z != 0) out << "*z^" << m.z;
+		if (m.x != 0){ 
+			out << "*x";
+			if (m.x != 1) {
+				out << "^" << m.x;
+			}
+		}
+		if (m.y != 0) {
+			out << "*y";
+			if (m.y != 1) {
+				out << "^" << m.y;
+			}
+		}
+		if (m.z != 0) {
+			out << "*z";
+			if (m.z != 1) {
+				out << "^" << m.z;
+			}
+		}
 
 		return out;
 	};
