@@ -17,25 +17,25 @@ namespace Visual {
 	{
 	private:
 		static AddMonom^ instance = nullptr;
-		static const int MY_WM_ENTERSIZEMOVE = 0x0231;
-		static const int MY_WM_MOVING = 0x0216;
 		std::vector<Polinom>* buffer;
 		Monom* currMonom;
-		void UpdateTable();
-		void UpdateLBWithBuffer();
+		
 		AddMonom(void)
 		{
 			InitializeComponent();
 			buffer = new std::vector<Polinom>(Model::getInstance().getPolinoms());
-			currMonom = new Monom(Model::getInstance().getMonom());
+			
 			UpdateTable();
 			//
 			//TODO: добавьте код конструктора
 			//
 		}
 	public:
+		
 		static property AddMonom^ Instance {
+
 			AddMonom^ get() {
+
 				if (instance == nullptr || instance->IsDisposed) {
 					instance = gcnew AddMonom();
 					
@@ -49,9 +49,6 @@ namespace Visual {
 		/// </summary>
 		~AddMonom()
 		{
-			this->!AddMonom();
-		}
-		!AddMonom() {
 			if (buffer != nullptr) {
 				delete buffer;
 				buffer = nullptr;
@@ -168,13 +165,13 @@ namespace Visual {
 				25)));
 			this->addMonomTLPanel->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
 				25)));
-			this->addMonomTLPanel->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->addMonomTLPanel->Dock = System::Windows::Forms::DockStyle::Top;
 			this->addMonomTLPanel->Location = System::Drawing::Point(4, 45);
 			this->addMonomTLPanel->Margin = System::Windows::Forms::Padding(4);
 			this->addMonomTLPanel->Name = L"addMonomTLPanel";
 			this->addMonomTLPanel->RowCount = 1;
 			this->addMonomTLPanel->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 100)));
-			this->addMonomTLPanel->Size = System::Drawing::Size(189, 116);
+			this->addMonomTLPanel->Size = System::Drawing::Size(189, 0);
 			this->addMonomTLPanel->TabIndex = 3;
 			this->addMonomTLPanel->LocationChanged += gcnew System::EventHandler(this, &AddMonom::AddMonom_LocationChanged);
 			this->addMonomTLPanel->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &AddMonom::AddMonom_MouseDown);
@@ -216,92 +213,37 @@ namespace Visual {
 	private:
 		bool isAttached = false;
 		Form^ parentForm = nullptr;
-		Point lastManualLocation;
-		
+
+		static const int MY_WM_ENTERSIZEMOVE = 0x0231;
+		static const int MY_WM_MOVING = 0x0216;
+
 	protected:
-		virtual void WndProc(Message% m) override {
-			if (m.Msg == MY_WM_ENTERSIZEMOVE && isAttached) {
-				Detach();
-			}
-			else if (m.Msg == MY_WM_MOVING && isAttached) {
-				Detach();
-			}
-			Form::WndProc(m);
-		}
+		virtual void WndProc(Message% m) override;
 	public:
-		void Attach(Form^ parent) {
-			parentForm = parent;
-			this->Owner = parentForm;
-			isAttached = true;
-			btnAttach->Text = "Detach";
-			UpdatePosition();
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
-			parentForm->LocationChanged += gcnew EventHandler(this, &AddMonom::parentForm_LocationChanged);
-		}
-		void Detach() {
-			if (parentForm != nullptr) {
-				parentForm->LocationChanged -= gcnew EventHandler(this, &AddMonom::parentForm_LocationChanged);
-				parentForm = nullptr;
-			}
-			this->Owner = nullptr;
-			isAttached = false;
-			btnAttach->Text = "Attach";
-			lastManualLocation = this->Location;
-		}
+		void Attach(Form^ parent);
+		void Detach();
+
+		void UpdateTable();
 	private:
-		System::Void btnAttach_Click(System::Object^ sender, System::EventArgs^ e);
-		
-		void parentForm_LocationChanged(Object^ sender, EventArgs^ e) {
-			if (isAttached) {
-				UpdatePosition();
-			}
-		}
-		void AddMonom_SizeChanged(Object^ sender, EventArgs^ e) {
-			if (isAttached) UpdatePosition();
-		}
-		void UpdatePosition() {
-			if (isAttached && parentForm != nullptr) {
-				int newX = parentForm->Left - this->Width + 5;
-				int newY = parentForm->Bottom - this->Height;
+		void UpdateLBWithBuffer();
 
-				if (newX < 0) newX = 0;
-				if (newY + this->Height > Screen::PrimaryScreen->WorkingArea.Height)
-					newY = Screen::PrimaryScreen->WorkingArea.Height - this->Height;
+		void parentForm_LocationChanged(Object^ sender, EventArgs^ e);
+		void parentForm_SizeChanged(Object^ sender, EventArgs^ e);
+		void AddMonom_SizeChanged(Object^ sender, EventArgs^ e);
+		void UpdatePosition();
 
-				this->Location = Point(newX, newY);
-			}
-		}
-
-		void AddMonom_MouseDown(Object^ sender, MouseEventArgs^ e) {
-			if (e->Button == System::Windows::Forms::MouseButtons::Left && isAttached) {
-				Detach();
-				btnAttach->Text = "Attach";
-				lastManualLocation = this->Location;
-			}
-		}
+		void AddMonom_MouseDown(Object^ sender, MouseEventArgs^ e);
 		
 		void AddMonom_LocationChanged(Object^ sender, EventArgs^ e);
 		void CheckForSmartDocking();
-		void CheckForReattach() {
-			if (IsNearParent()) {
-				Attach(parentForm);
-			}
-		}
-
-		bool IsNearParent() {
-			if (parentForm == nullptr) return false;
-			return (abs(this->Right - parentForm->Left) < 20 &&
-				abs(this->Top - parentForm->Bottom) < 20);
-		}
-
 		
-
-	private: System::Void AddMonom_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e);
-	private: System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e);
-	private: System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e);
-	private: System::Void OnAddClick(System::Object^ sender, System::EventArgs^ e);
-	private: System::Void OnSubClick(System::Object^ sender, System::EventArgs^ e);
-	private: System::Void OnMultClick(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnAttach_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void AddMonom_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e);
+		System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void OnAddClick(System::Object^ sender, System::EventArgs^ e);
+		System::Void OnSubClick(System::Object^ sender, System::EventArgs^ e);
+		System::Void OnMultClick(System::Object^ sender, System::EventArgs^ e);
 	
 };
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include <stdlib.h>
+#include "../TasksList/Model.h"
 namespace Visual {
 
 	using namespace System;
@@ -16,14 +17,12 @@ namespace Visual {
 	{
 	private:
 		static PolinomCalculator^ instance = nullptr;
-		static const int MY_WM_ENTERSIZEMOVE = 0x0231;
-		static const int MY_WM_MOVING = 0x0216;
+		std::vector<Polinom>* buffer;
 		PolinomCalculator(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: добавьте код конструктора
-			//
+			buffer = new std::vector<Polinom>(Model::getInstance().getPolinoms());
+
 		}
 	public:
 		static property PolinomCalculator^ Instance {
@@ -40,6 +39,10 @@ namespace Visual {
 		/// </summary>
 		~PolinomCalculator()
 		{
+			if (buffer != nullptr) {
+				delete buffer;
+				buffer = nullptr;
+			}
 			if (components)
 			{
 				delete components;
@@ -181,6 +184,7 @@ namespace Visual {
 			this->btnEnter->TabIndex = 20;
 			this->btnEnter->Text = L"=";
 			this->btnEnter->UseVisualStyleBackColor = false;
+			this->btnEnter->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnEnter_Click);
 			// 
 			// btnBack
 			// 
@@ -191,8 +195,9 @@ namespace Visual {
 			this->btnBack->Name = L"btnBack";
 			this->btnBack->Size = System::Drawing::Size(72, 54);
 			this->btnBack->TabIndex = 19;
-			this->btnBack->Text = L"X";
+			this->btnBack->Text = L"<";
 			this->btnBack->UseVisualStyleBackColor = false;
+			this->btnBack->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnBack_Click);
 			// 
 			// btnClear
 			// 
@@ -205,6 +210,7 @@ namespace Visual {
 			this->btnClear->TabIndex = 18;
 			this->btnClear->Text = L"C";
 			this->btnClear->UseVisualStyleBackColor = false;
+			this->btnClear->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnClear_Click);
 			// 
 			// btnZero
 			// 
@@ -217,6 +223,7 @@ namespace Visual {
 			this->btnZero->TabIndex = 17;
 			this->btnZero->Text = L"0";
 			this->btnZero->UseVisualStyleBackColor = false;
+			this->btnZero->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// btnPlus
 			// 
@@ -229,6 +236,7 @@ namespace Visual {
 			this->btnPlus->TabIndex = 16;
 			this->btnPlus->Text = L"+";
 			this->btnPlus->UseVisualStyleBackColor = false;
+			this->btnPlus->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// btnThree
 			// 
@@ -241,6 +249,7 @@ namespace Visual {
 			this->btnThree->TabIndex = 15;
 			this->btnThree->Text = L"3";
 			this->btnThree->UseVisualStyleBackColor = false;
+			this->btnThree->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// btnTwo
 			// 
@@ -253,6 +262,7 @@ namespace Visual {
 			this->btnTwo->TabIndex = 14;
 			this->btnTwo->Text = L"2";
 			this->btnTwo->UseVisualStyleBackColor = false;
+			this->btnTwo->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// btnOne
 			// 
@@ -265,6 +275,7 @@ namespace Visual {
 			this->btnOne->TabIndex = 13;
 			this->btnOne->Text = L"1";
 			this->btnOne->UseVisualStyleBackColor = false;
+			this->btnOne->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// btnMinus
 			// 
@@ -277,6 +288,7 @@ namespace Visual {
 			this->btnMinus->TabIndex = 12;
 			this->btnMinus->Text = L"-";
 			this->btnMinus->UseVisualStyleBackColor = false;
+			this->btnMinus->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// btnSix
 			// 
@@ -289,6 +301,7 @@ namespace Visual {
 			this->btnSix->TabIndex = 11;
 			this->btnSix->Text = L"6";
 			this->btnSix->UseVisualStyleBackColor = false;
+			this->btnSix->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// btnFive
 			// 
@@ -301,6 +314,7 @@ namespace Visual {
 			this->btnFive->TabIndex = 10;
 			this->btnFive->Text = L"5";
 			this->btnFive->UseVisualStyleBackColor = false;
+			this->btnFive->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// btnFour
 			// 
@@ -313,6 +327,7 @@ namespace Visual {
 			this->btnFour->TabIndex = 9;
 			this->btnFour->Text = L"4";
 			this->btnFour->UseVisualStyleBackColor = false;
+			this->btnFour->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// btnMult
 			// 
@@ -325,6 +340,7 @@ namespace Visual {
 			this->btnMult->TabIndex = 8;
 			this->btnMult->Text = L"*";
 			this->btnMult->UseVisualStyleBackColor = false;
+			this->btnMult->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// btnNine
 			// 
@@ -337,6 +353,7 @@ namespace Visual {
 			this->btnNine->TabIndex = 7;
 			this->btnNine->Text = L"9";
 			this->btnNine->UseVisualStyleBackColor = false;
+			this->btnNine->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// btnEight
 			// 
@@ -349,6 +366,7 @@ namespace Visual {
 			this->btnEight->TabIndex = 6;
 			this->btnEight->Text = L"8";
 			this->btnEight->UseVisualStyleBackColor = false;
+			this->btnEight->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// label1
 			// 
@@ -385,6 +403,7 @@ namespace Visual {
 			this->calculTBox->Font = (gcnew System::Drawing::Font(L"Arial", 10));
 			this->calculTBox->Location = System::Drawing::Point(3, 76);
 			this->calculTBox->Name = L"calculTBox";
+			this->calculTBox->ReadOnly = true;
 			this->calculTBox->Size = System::Drawing::Size(306, 27);
 			this->calculTBox->TabIndex = 4;
 			// 
@@ -400,6 +419,7 @@ namespace Visual {
 			this->btnCancel->TabIndex = 2;
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->UseVisualStyleBackColor = false;
+			this->btnCancel->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCancel_Click);
 			// 
 			// btnSave
 			// 
@@ -413,6 +433,7 @@ namespace Visual {
 			this->btnSave->TabIndex = 3;
 			this->btnSave->Text = L"Save";
 			this->btnSave->UseVisualStyleBackColor = false;
+			this->btnSave->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnSave_Click);
 			// 
 			// btnSeven
 			// 
@@ -425,6 +446,7 @@ namespace Visual {
 			this->btnSeven->TabIndex = 5;
 			this->btnSeven->Text = L"7";
 			this->btnSeven->UseVisualStyleBackColor = false;
+			this->btnSeven->Click += gcnew System::EventHandler(this, &PolinomCalculator::btnCalc_Click);
 			// 
 			// PolinomCalculator
 			// 
@@ -434,12 +456,14 @@ namespace Visual {
 			this->Controls->Add(this->tableLayoutPanel1);
 			this->DoubleBuffered = true;
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
+			this->KeyPreview = true;
 			this->MinimumSize = System::Drawing::Size(330, 439);
 			this->Name = L"PolinomCalculator";
 			this->Text = L"PolinomCalculator";
 			this->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &PolinomCalculator::PolinomCalculator_FormClosed);
 			this->LocationChanged += gcnew System::EventHandler(this, &PolinomCalculator::PolinomCalculator_LocationChanged);
 			this->SizeChanged += gcnew System::EventHandler(this, &PolinomCalculator::PolinomCalculator_SizeChanged);
+			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &PolinomCalculator::PolinomCalculator_KeyDown);
 			this->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &PolinomCalculator::PolinomCalculator_MouseDown);
 			this->tableLayoutPanel1->ResumeLayout(false);
 			this->tableLayoutPanel1->PerformLayout();
@@ -448,87 +472,40 @@ namespace Visual {
 		}
 #pragma endregion
 	private:
+		static const int MY_WM_ENTERSIZEMOVE = 0x0231;
+		static const int MY_WM_MOVING = 0x0216;
 		bool isAttached = false;
 		Form^ parentForm = nullptr;
-		Point lastManualLocation;
+
 	protected:
-		virtual void WndProc(Message% m) override {
-			if (m.Msg == MY_WM_ENTERSIZEMOVE && isAttached) {
-				Detach();
-			}
-			else if (m.Msg == MY_WM_MOVING && isAttached) {
-				Detach();
-			}
-			Form::WndProc(m);
-		}
+		virtual void WndProc(Message% m) override;
 	public:
-		void Attach(Form^ parent) {
-			parentForm = parent;
-			this->Owner = parentForm;
-			isAttached = true;
-			btnAttach->Text = "Detach";
-			UpdatePosition();
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
-			parentForm->LocationChanged += gcnew EventHandler(this, &PolinomCalculator::parentForm_LocationChanged);
-		}
-		void Detach() {
-			if (parentForm != nullptr) {
-				parentForm->LocationChanged -= gcnew EventHandler(this, &PolinomCalculator::parentForm_LocationChanged);
-				parentForm = nullptr;
-			}
-			this->Owner = nullptr;
-			isAttached = false;
-			btnAttach->Text = "Attach";
-			lastManualLocation = this->Location;
-		}
+		void Attach(Form^ parent);
+		void Detach();
 	private:
-		System::Void btnAttach_Click(System::Object^ sender, System::EventArgs^ e);
-		void parentForm_LocationChanged(Object^ sender, EventArgs^ e) {
-			if (isAttached) {
-				UpdatePosition();
-			}
-		}
-		void UpdatePosition() {
-			if (isAttached && parentForm != nullptr) {
-				int newX = parentForm->Right + 5;
-				int newY = parentForm->Bottom - this->Height;
+		void UpdateLBWithBuffer();
 
-				if (newX < 0) newX = 0;
-				if (newX + this->Width > Screen::PrimaryScreen->WorkingArea.Right)
-					newX = Screen::PrimaryScreen->WorkingArea.Right - this->Width;
-				if (newY + this->Height > Screen::PrimaryScreen->WorkingArea.Height)
-					newY = Screen::PrimaryScreen->WorkingArea.Height - this->Height;
-				if (newY < 0) newY = 0;
-
-				this->Location = Point(newX, newY);
-			}
-		}
-
-		void PolinomCalculator_MouseDown(Object^ sender, MouseEventArgs^ e) {
-			if (e->Button == System::Windows::Forms::MouseButtons::Left && isAttached) {
-				Detach();
-				btnAttach->Text = "Attach";
-				lastManualLocation = this->Location;
-			}
-		}
-
-		void PolinomCalculator_SizeChanged(Object^ sender, EventArgs^ e) {
-			if (isAttached) UpdatePosition();
-		}
+		void UpdatePosition();
+		void PolinomCalculator_MouseDown(Object^ sender, MouseEventArgs^ e);
+		void PolinomCalculator_SizeChanged(Object^ sender, EventArgs^ e);
 		void PolinomCalculator_LocationChanged(Object^ sender, EventArgs^ e);
+		void parentForm_LocationChanged(Object^ sender, EventArgs^ e);
+		void parentForm_SizeChanged(Object^ sender, EventArgs^ e);
 		void CheckForSmartDocking();
-		void CheckForReattach() {
-			if (IsNearParent()) {
-				Attach(parentForm);
-			}
-		}
 
-		bool IsNearParent() {
-			if (parentForm == nullptr) return false;
-			return (abs(this->Right - parentForm->Right) < 20 &&
-				abs(this->Bottom - parentForm->Bottom) < 20);
-		}
-	private: System::Void PolinomCalculator_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e) {
-	}
+		System::Void btnAttach_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnSave_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void PolinomCalculator_FormClosed(System::Object^ sender, System::Windows::Forms::FormClosedEventArgs^ e);
+		System::Void btnCancel_Click(System::Object^ sender, System::EventArgs^ e);
+
+		System::Void btnCalc_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnEnter_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e);
+		System::Void btnClear_Click(System::Object^ sender, System::EventArgs^ e);
+
+		System::Void PolinomCalculator_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e);
+		void HandleDigitKey(KeyEventArgs^ e);
+		void HandleBackSpaceKey();
+		void CalculatePolinoms();
 };
 }

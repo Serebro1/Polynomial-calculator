@@ -27,6 +27,7 @@ void Visual::MyForm::UpdateListBox()
 		);
 		polinomListBox->Items->Add(item);
 	}
+	if (AddMonom::Instance->Visible) AddMonom::Instance->UpdateTable();
 }
 
 Polinom Visual::MyForm::parsePolinom(const std::string& input)
@@ -52,14 +53,15 @@ System::Void Visual::MyForm::addMonomButton_Click(System::Object^ sender, System
 {
 	try
 	{
-		String^ input = "";
-		String^ coeffStr = coeffTBox->Text;
+		if (String::IsNullOrWhiteSpace(coeffTBox->Text) || String::IsNullOrWhiteSpace(xTBox->Text) ||
+			String::IsNullOrWhiteSpace(yTBox->Text) || String::IsNullOrWhiteSpace(zTBox->Text))
+			throw std::invalid_argument("Too few arguments");
 
-		input = String::Format("{0}{1}{2}{3}",
-			coeffStr,
-			(String::IsNullOrEmpty(xTBox->Text) || xTBox->Text == "0") ? "" : "x^" + xTBox->Text,
-			(String::IsNullOrEmpty(yTBox->Text) || yTBox->Text == "0") ? "" : "y^" + yTBox->Text,
-			(String::IsNullOrEmpty(zTBox->Text) || zTBox->Text == "0") ? "" : "z^" + zTBox->Text
+		String^ input = String::Format("{0}{1}{2}{3}",
+			coeffTBox->Text,
+			"x^" + xTBox->Text,
+			"y^" + yTBox->Text,
+			"z^" + zTBox->Text
 		);
 
 		std::string monomStr = msclr::interop::marshal_as<std::string>(input);
@@ -115,7 +117,7 @@ System::Void Visual::MyForm::copyPolyToolStripMenuItem_Click(System::Object^ sen
 {
 	if (polinomListBox->SelectedIndex != -1) {
 		String^ text = polinomListBox->SelectedItem->ToString();
-		Clipboard::SetText(text);
+		Clipboard::SetText(text->Split(':')[1]);
 	}
 }
 
@@ -123,9 +125,8 @@ System::Void Visual::MyForm::deletePolyToolStripMenuItem_Click(System::Object^ s
 {
 	if (polinomListBox->SelectedIndex != -1) {
 
-		polinomListBox->Items->RemoveAt(polinomListBox->SelectedIndex);
-
 		Model::getInstance().removePolinom(polinomListBox->SelectedIndex);
+		UpdateListBox();
 	}
 }
 

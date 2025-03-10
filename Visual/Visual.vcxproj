@@ -137,7 +137,7 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="PolinomCalculator.h">
-      <FileType>CppHeader</FileType>
+      <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
