@@ -6,7 +6,10 @@ std::string to_string(const T& obj) {
 	oss << obj;
 	return oss.str();
 }
-
+std::string Model::getStrPoly(const Polinom& poly)
+{
+	return to_string(poly);
+}
 Model::Model()
 {
 	Monom* monoms = new Monom[3];
@@ -37,11 +40,6 @@ std::vector<std::string> Model::getStrPolinoms()
 	}
 
 	return res;
-}
-
-void Model::addPolinom(const Polinom& p)
-{
-	polinoms.push_back(p);
 }
 
 void Model::removePolinom(int index)

@@ -52,12 +52,20 @@ System::Void Visual::MyForm::addMonomButton_Click(System::Object^ sender, System
 {
 	try
 	{
+		String^ input = coeffTBox->Text + 
+			"*x^" + xTBox->Text +
+			"*y^" + yTBox->Text +
+			"*z^" + zTBox->Text;
+		std::string monomStr = msclr::interop::marshal_as<std::string>(input);
+		model.setMonom(model.parser.parseMonomial(monomStr));
+
 		AddMonom^ child = AddMonom::Instance;
 		if (!child->Visible) {
 			child->Show(this);
 			child->Attach(this);
 		}
 		child->BringToFront();
+
 	}
 	catch (const std::exception& ex)
 	{
@@ -118,7 +126,7 @@ System::Void Visual::MyForm::deletePolyToolStripMenuItem_Click(System::Object^ s
 System::Void Visual::MyForm::polinomListBox_MouseDown(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 {
 	if (e->Button == System::Windows::Forms::MouseButtons::Right) {
-		// Вычисляем индекс элемента под курсором
+
 		int index = polinomListBox->IndexFromPoint(e->Location);
 		if (index != System::Windows::Forms::ListBox::NoMatches) {
 			polinomListBox->SelectedIndex = index;

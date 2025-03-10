@@ -18,13 +18,14 @@ namespace Visual {
 	{
 	private:
 		Model& model;
+		static MyForm^ _instance = nullptr;
+		void UpdateListBox();
+		Polinom parsePolinom(const std::string& input);
 	private: System::Windows::Forms::ContextMenuStrip^ polinomCMStrip;
 
 	private: System::Windows::Forms::ToolStripMenuItem^ copyPolyToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ deletePolyToolStripMenuItem;
-		   static MyForm^ _instance = nullptr;
-		void UpdateListBox();
-		Polinom parsePolinom(const std::string& input);
+		   
 	public:
 		static property MyForm^ Instance {
 			MyForm^ get() { return _instance; }
