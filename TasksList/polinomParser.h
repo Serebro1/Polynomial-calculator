@@ -33,6 +33,24 @@ public:
         return monomials;
     }
 
+    Polinom parsePolinomial(const std::string& polynomialStr) {
+        Polinom res;
+        std::string cleaned = cleanInput(polynomialStr);
+        if (cleaned.empty()) {
+            throw std::invalid_argument("Entered empty line!");
+        }
+        if (!validateInput(cleaned)) {
+            throw std::invalid_argument("Invalid symbols in polynomial!");
+        }
+        std::vector<std::string> monomsStr = splitMonomials(cleaned);
+        std::vector<Monom> monoms;
+        for (const auto& str : monomsStr) {
+            Monom m = parseMonomial(str);
+            res += m;
+        }
+        return res;
+    }
+
     Monom parseMonomial(const std::string& monomialStr) {
         Monom monomial;
         std::regex monomialRegex(R"(([+-]?\d*\.?\d*)(?:\*?([xyz]\^?\d*))*)");
@@ -74,4 +92,11 @@ public:
         return true;
     }
 
+    bool validateExpression(const std::string& input){
+        std::regex validCharsRegex(R"(^-?(?:\d+(?:-(?:-?\d+)|[+*]-?\d+)*)$)");
+        if (!std::regex_match(input, validCharsRegex)) {
+            throw std::invalid_argument("Validator: Invalid expression format!");
+        }
+        return true;
+        }
 };

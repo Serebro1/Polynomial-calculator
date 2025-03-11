@@ -1,8 +1,8 @@
 #pragma once
 
 #include "ListStack.h"
-#include "../TasksList/Model.h"
-//using namespace std;
+#include "../TasksList/polinom.h"
+
 
 enum Opers {
 	openbr, unarMns, pls, mns, mlt, dv, pw, sn, cs, tn
@@ -12,7 +12,8 @@ class TCalc
 {
 	std::string infix;
 	std::string postfix;
-	Stack<int> StIndex;
+
+	std::vector<Polinom> polinoms;
 	Stack<Polinom> StPolinoms;
 	Stack<char> StChar;
 	Stack<Opers> StOpers;
@@ -21,6 +22,7 @@ public:
 	// set, get для тестов
 	void SetInfix(std::string _infix) { infix = _infix; }
 	void SetPostfix(std::string _postfix) { postfix = _postfix; }
+	void SetPolinoms(std::vector<Polinom> pol) { polinoms = pol; }
 	std::string GetInfix() { return infix; }
 	std::string GetPostfix() { return postfix; }
 

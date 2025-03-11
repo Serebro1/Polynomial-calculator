@@ -128,11 +128,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\mp2-AlgOfList\calc.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="polinom.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\mp2-AlgOfList\calc.h" />
     <ClInclude Include="iteratorTList.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="monom.h" />

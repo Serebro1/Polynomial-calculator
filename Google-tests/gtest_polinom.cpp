@@ -549,5 +549,5 @@ TEST(Polinom, can_output_polinom_with_params) {
 	Polinom p(mons, 3);
     std::ostringstream output;
     ASSERT_NO_THROW(output << p);
-    EXPECT_EQ(output.str(), "-1.4*x^1*z^2 - 2*x^1 + 3*y^1");
+    EXPECT_EQ(output.str(), "-1.4*x*z^2 - 2*x + 3*y");
 }

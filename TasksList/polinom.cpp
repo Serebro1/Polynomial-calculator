@@ -271,9 +271,8 @@ Polinom Polinom::operator*(Polinom p)
 {
 	Polinom res;
 	if (pFirst == nullptr || p.pFirst == nullptr) return res;
-	res = *this;
 	for (Monom& m : p) {
-		res *= p;
+		res += (*this) * m;
 	}
 	return res;
 }

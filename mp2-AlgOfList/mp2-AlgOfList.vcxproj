@@ -127,12 +127,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\PolinomList\polinom.h" />
     <ClInclude Include="baseList.h" />
     <ClInclude Include="calc.h" />
     <ClInclude Include="ListStack.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\PolinomList\polinom.cpp" />
     <ClCompile Include="calc.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

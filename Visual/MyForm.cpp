@@ -28,35 +28,25 @@ void Visual::MyForm::UpdateListBox()
 		polinomListBox->Items->Add(item);
 	}
 	if (AddMonom::Instance->Visible) AddMonom::Instance->UpdateTable();
-}
-
-Polinom Visual::MyForm::parsePolinom(const std::string& input)
-{
-	Polinom res;
-	std::string cleaned = model.parser.cleanInput(input);
-	if (cleaned.empty()) {
-		throw std::invalid_argument("Entered empty line!");
-	}
-	if (!model.parser.validateInput(cleaned)) {
-		throw std::invalid_argument("Invalid symbols in polynomial!");
-	}
-	std::vector<std::string> monomsStr = model.parser.splitMonomials(cleaned);
-	std::vector<Monom> monoms;
-	for (const auto& str : monomsStr) {
-		Monom m = model.parser.parseMonomial(str);
-		res += m;
-	}
-	return res;
+	if (PolinomCalculator::Instance->Visible) PolinomCalculator::Instance->UpdateBuffer();
 }
 
 System::Void Visual::MyForm::addMonomButton_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	if (PolinomCalculator::Instance->Visible) {
+		MessageBox::Show("Close polynomial calculator form.", "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
+	}
 	try
 	{
-		if (String::IsNullOrWhiteSpace(coeffTBox->Text) || String::IsNullOrWhiteSpace(xTBox->Text) ||
-			String::IsNullOrWhiteSpace(yTBox->Text) || String::IsNullOrWhiteSpace(zTBox->Text))
-			throw std::invalid_argument("Too few arguments");
-
+		if (String::IsNullOrWhiteSpace(coeffTBox->Text))
+			coeffTBox->Text = "1";
+		if (String::IsNullOrWhiteSpace(xTBox->Text))
+			xTBox->Text = "0";
+		if (String::IsNullOrWhiteSpace(yTBox->Text))
+			yTBox->Text = "0";
+		if (String::IsNullOrWhiteSpace(zTBox->Text))
+			zTBox->Text = "0";
 		String^ input = String::Format("{0}{1}{2}{3}",
 			coeffTBox->Text,
 			"x^" + xTBox->Text,
@@ -85,12 +75,23 @@ System::Void Visual::MyForm::addMonomButton_Click(System::Object^ sender, System
 
 System::Void Visual::MyForm::calculatorButton_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	PolinomCalculator^ child = PolinomCalculator::Instance;
-	if (!child->Visible) {
-		child->Show(this);
-		child->Attach(this);
+	if (AddMonom::Instance->Visible) {
+		MessageBox::Show("Close add monom form.", "Info", MessageBoxButtons::OK, MessageBoxIcon::Information);
+		return;
 	}
-	child->BringToFront();
+	try {
+		PolinomCalculator^ child = PolinomCalculator::Instance;
+		if (!child->Visible) {
+			child->Show(this);
+			child->Attach(this);
+		}
+		child->BringToFront();
+	}
+	catch(const std::exception & ex)
+	{
+		String^ errorMsg = gcnew String(ex.what());
+		MessageBox::Show(errorMsg, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
 }
 
 System::Void Visual::MyForm::addPolinombutton_Click(System::Object^ sender, System::EventArgs^ e)
@@ -100,7 +101,7 @@ System::Void Visual::MyForm::addPolinombutton_Click(System::Object^ sender, Syst
 		String^ text = polinomTBox->Text;
 		std::string input = msclr::interop::marshal_as<std::string>(text);
 
-		Polinom poly = parsePolinom(input);
+		Polinom poly = Model::getInstance().parsePolinom(input);
 		Model::getInstance().addPolinom(poly);
 		UpdateListBox();
 	}

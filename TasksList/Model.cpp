@@ -53,10 +53,17 @@ void Model::clearPolinoms()
 {
 	polinoms.clear();
 }
-
-Polinom Model::calcPolinom(std::string expression)
+Polinom Model::parsePolinom(const std::string& polynomialStr)
 {
-	calculator.Check(expression);
-	calculator.SetInfix(expression);
+	return parser.parsePolinomial(polynomialStr);
+}
+Polinom Model::calcPolinom(const std::string& expression)
+{
+	std::string process;
+	process = parser.cleanInput(expression);
+	parser.validateExpression(process);
+	calculator.Check(process);
+	calculator.SetInfix(process);
+	calculator.SetPolinoms(polinoms);
 	return calculator.Calcul();
 }

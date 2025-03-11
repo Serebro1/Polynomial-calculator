@@ -65,7 +65,7 @@ TEST(Monom, can_output_monom_with_params) {
     input >> monom;
     std::ostringstream output;
     ASSERT_NO_THROW(output << monom);
-    EXPECT_EQ(output.str(), "1.2*x^2*y^3*z^1");
+    EXPECT_EQ(output.str(), "1.2*x^2*y^3*z");
 }
 TEST(Monom, DefaultConstructor) {
     Monom m;
@@ -115,7 +115,7 @@ TEST(Monom, OutputOperator) {
     Monom m1(2.5, 3, 0, 1);
     std::stringstream ss1;
     ss1 << m1;
-    EXPECT_EQ(ss1.str(), "2.5*x^3*z^1");
+    EXPECT_EQ(ss1.str(), "2.5*x^3*z");
 
     Monom m2(-4.0, 0, 0, 0);
     std::stringstream ss2;
@@ -130,7 +130,7 @@ TEST(Monom, OutputOperator) {
     Monom m4(-2.0, 1, 1, 1);
     std::stringstream ss4;
     ss4 << m4;
-    EXPECT_EQ(ss4.str(), "-2*x^1*y^1*z^1");
+    EXPECT_EQ(ss4.str(), "-2*x*y*z");
 }
 
 TEST(Monom, InputOperator) {

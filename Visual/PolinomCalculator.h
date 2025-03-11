@@ -162,6 +162,7 @@ namespace Visual {
 			this->tableLayoutPanel1->Controls->Add(this->btnSeven, 0, 2);
 			this->tableLayoutPanel1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tableLayoutPanel1->Location = System::Drawing::Point(0, 0);
+			this->tableLayoutPanel1->Margin = System::Windows::Forms::Padding(2);
 			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
 			this->tableLayoutPanel1->RowCount = 7;
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 14.28571F)));
@@ -171,7 +172,7 @@ namespace Visual {
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 14.28571F)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 14.28571F)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 14.28571F)));
-			this->tableLayoutPanel1->Size = System::Drawing::Size(312, 421);
+			this->tableLayoutPanel1->Size = System::Drawing::Size(236, 342);
 			this->tableLayoutPanel1->TabIndex = 0;
 			// 
 			// btnEnter
@@ -179,9 +180,10 @@ namespace Visual {
 			this->btnEnter->BackColor = System::Drawing::Color::Azure;
 			this->btnEnter->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnEnter->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnEnter->Location = System::Drawing::Point(237, 303);
+			this->btnEnter->Location = System::Drawing::Point(179, 242);
+			this->btnEnter->Margin = System::Windows::Forms::Padding(2);
 			this->btnEnter->Name = L"btnEnter";
-			this->btnEnter->Size = System::Drawing::Size(72, 54);
+			this->btnEnter->Size = System::Drawing::Size(55, 44);
 			this->btnEnter->TabIndex = 20;
 			this->btnEnter->Text = L"=";
 			this->btnEnter->UseVisualStyleBackColor = false;
@@ -192,9 +194,10 @@ namespace Visual {
 			this->btnBack->BackColor = System::Drawing::Color::Azure;
 			this->btnBack->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnBack->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnBack->Location = System::Drawing::Point(159, 303);
+			this->btnBack->Location = System::Drawing::Point(120, 242);
+			this->btnBack->Margin = System::Windows::Forms::Padding(2);
 			this->btnBack->Name = L"btnBack";
-			this->btnBack->Size = System::Drawing::Size(72, 54);
+			this->btnBack->Size = System::Drawing::Size(55, 44);
 			this->btnBack->TabIndex = 19;
 			this->btnBack->Text = L"<";
 			this->btnBack->UseVisualStyleBackColor = false;
@@ -205,9 +208,10 @@ namespace Visual {
 			this->btnClear->BackColor = System::Drawing::Color::Azure;
 			this->btnClear->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnClear->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnClear->Location = System::Drawing::Point(81, 303);
+			this->btnClear->Location = System::Drawing::Point(61, 242);
+			this->btnClear->Margin = System::Windows::Forms::Padding(2);
 			this->btnClear->Name = L"btnClear";
-			this->btnClear->Size = System::Drawing::Size(72, 54);
+			this->btnClear->Size = System::Drawing::Size(55, 44);
 			this->btnClear->TabIndex = 18;
 			this->btnClear->Text = L"C";
 			this->btnClear->UseVisualStyleBackColor = false;
@@ -218,9 +222,10 @@ namespace Visual {
 			this->btnZero->BackColor = System::Drawing::Color::LightBlue;
 			this->btnZero->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnZero->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnZero->Location = System::Drawing::Point(3, 303);
+			this->btnZero->Location = System::Drawing::Point(2, 242);
+			this->btnZero->Margin = System::Windows::Forms::Padding(2);
 			this->btnZero->Name = L"btnZero";
-			this->btnZero->Size = System::Drawing::Size(72, 54);
+			this->btnZero->Size = System::Drawing::Size(55, 44);
 			this->btnZero->TabIndex = 17;
 			this->btnZero->Text = L"0";
 			this->btnZero->UseVisualStyleBackColor = false;
@@ -231,9 +236,10 @@ namespace Visual {
 			this->btnPlus->BackColor = System::Drawing::Color::Azure;
 			this->btnPlus->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnPlus->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnPlus->Location = System::Drawing::Point(237, 243);
+			this->btnPlus->Location = System::Drawing::Point(179, 194);
+			this->btnPlus->Margin = System::Windows::Forms::Padding(2);
 			this->btnPlus->Name = L"btnPlus";
-			this->btnPlus->Size = System::Drawing::Size(72, 54);
+			this->btnPlus->Size = System::Drawing::Size(55, 44);
 			this->btnPlus->TabIndex = 16;
 			this->btnPlus->Text = L"+";
 			this->btnPlus->UseVisualStyleBackColor = false;
@@ -244,9 +250,10 @@ namespace Visual {
 			this->btnThree->BackColor = System::Drawing::Color::LightBlue;
 			this->btnThree->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnThree->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnThree->Location = System::Drawing::Point(159, 243);
+			this->btnThree->Location = System::Drawing::Point(120, 194);
+			this->btnThree->Margin = System::Windows::Forms::Padding(2);
 			this->btnThree->Name = L"btnThree";
-			this->btnThree->Size = System::Drawing::Size(72, 54);
+			this->btnThree->Size = System::Drawing::Size(55, 44);
 			this->btnThree->TabIndex = 15;
 			this->btnThree->Text = L"3";
 			this->btnThree->UseVisualStyleBackColor = false;
@@ -257,9 +264,10 @@ namespace Visual {
 			this->btnTwo->BackColor = System::Drawing::Color::LightBlue;
 			this->btnTwo->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnTwo->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnTwo->Location = System::Drawing::Point(81, 243);
+			this->btnTwo->Location = System::Drawing::Point(61, 194);
+			this->btnTwo->Margin = System::Windows::Forms::Padding(2);
 			this->btnTwo->Name = L"btnTwo";
-			this->btnTwo->Size = System::Drawing::Size(72, 54);
+			this->btnTwo->Size = System::Drawing::Size(55, 44);
 			this->btnTwo->TabIndex = 14;
 			this->btnTwo->Text = L"2";
 			this->btnTwo->UseVisualStyleBackColor = false;
@@ -270,9 +278,10 @@ namespace Visual {
 			this->btnOne->BackColor = System::Drawing::Color::LightBlue;
 			this->btnOne->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnOne->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnOne->Location = System::Drawing::Point(3, 243);
+			this->btnOne->Location = System::Drawing::Point(2, 194);
+			this->btnOne->Margin = System::Windows::Forms::Padding(2);
 			this->btnOne->Name = L"btnOne";
-			this->btnOne->Size = System::Drawing::Size(72, 54);
+			this->btnOne->Size = System::Drawing::Size(55, 44);
 			this->btnOne->TabIndex = 13;
 			this->btnOne->Text = L"1";
 			this->btnOne->UseVisualStyleBackColor = false;
@@ -283,9 +292,10 @@ namespace Visual {
 			this->btnMinus->BackColor = System::Drawing::Color::Azure;
 			this->btnMinus->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnMinus->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnMinus->Location = System::Drawing::Point(237, 183);
+			this->btnMinus->Location = System::Drawing::Point(179, 146);
+			this->btnMinus->Margin = System::Windows::Forms::Padding(2);
 			this->btnMinus->Name = L"btnMinus";
-			this->btnMinus->Size = System::Drawing::Size(72, 54);
+			this->btnMinus->Size = System::Drawing::Size(55, 44);
 			this->btnMinus->TabIndex = 12;
 			this->btnMinus->Text = L"-";
 			this->btnMinus->UseVisualStyleBackColor = false;
@@ -296,9 +306,10 @@ namespace Visual {
 			this->btnSix->BackColor = System::Drawing::Color::LightBlue;
 			this->btnSix->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnSix->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnSix->Location = System::Drawing::Point(159, 183);
+			this->btnSix->Location = System::Drawing::Point(120, 146);
+			this->btnSix->Margin = System::Windows::Forms::Padding(2);
 			this->btnSix->Name = L"btnSix";
-			this->btnSix->Size = System::Drawing::Size(72, 54);
+			this->btnSix->Size = System::Drawing::Size(55, 44);
 			this->btnSix->TabIndex = 11;
 			this->btnSix->Text = L"6";
 			this->btnSix->UseVisualStyleBackColor = false;
@@ -309,9 +320,10 @@ namespace Visual {
 			this->btnFive->BackColor = System::Drawing::Color::LightBlue;
 			this->btnFive->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnFive->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnFive->Location = System::Drawing::Point(81, 183);
+			this->btnFive->Location = System::Drawing::Point(61, 146);
+			this->btnFive->Margin = System::Windows::Forms::Padding(2);
 			this->btnFive->Name = L"btnFive";
-			this->btnFive->Size = System::Drawing::Size(72, 54);
+			this->btnFive->Size = System::Drawing::Size(55, 44);
 			this->btnFive->TabIndex = 10;
 			this->btnFive->Text = L"5";
 			this->btnFive->UseVisualStyleBackColor = false;
@@ -322,9 +334,10 @@ namespace Visual {
 			this->btnFour->BackColor = System::Drawing::Color::LightBlue;
 			this->btnFour->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnFour->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnFour->Location = System::Drawing::Point(3, 183);
+			this->btnFour->Location = System::Drawing::Point(2, 146);
+			this->btnFour->Margin = System::Windows::Forms::Padding(2);
 			this->btnFour->Name = L"btnFour";
-			this->btnFour->Size = System::Drawing::Size(72, 54);
+			this->btnFour->Size = System::Drawing::Size(55, 44);
 			this->btnFour->TabIndex = 9;
 			this->btnFour->Text = L"4";
 			this->btnFour->UseVisualStyleBackColor = false;
@@ -335,9 +348,10 @@ namespace Visual {
 			this->btnMult->BackColor = System::Drawing::Color::Azure;
 			this->btnMult->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnMult->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnMult->Location = System::Drawing::Point(237, 123);
+			this->btnMult->Location = System::Drawing::Point(179, 98);
+			this->btnMult->Margin = System::Windows::Forms::Padding(2);
 			this->btnMult->Name = L"btnMult";
-			this->btnMult->Size = System::Drawing::Size(72, 54);
+			this->btnMult->Size = System::Drawing::Size(55, 44);
 			this->btnMult->TabIndex = 8;
 			this->btnMult->Text = L"*";
 			this->btnMult->UseVisualStyleBackColor = false;
@@ -348,9 +362,10 @@ namespace Visual {
 			this->btnNine->BackColor = System::Drawing::Color::LightBlue;
 			this->btnNine->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnNine->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnNine->Location = System::Drawing::Point(159, 123);
+			this->btnNine->Location = System::Drawing::Point(120, 98);
+			this->btnNine->Margin = System::Windows::Forms::Padding(2);
 			this->btnNine->Name = L"btnNine";
-			this->btnNine->Size = System::Drawing::Size(72, 54);
+			this->btnNine->Size = System::Drawing::Size(55, 44);
 			this->btnNine->TabIndex = 7;
 			this->btnNine->Text = L"9";
 			this->btnNine->UseVisualStyleBackColor = false;
@@ -361,9 +376,10 @@ namespace Visual {
 			this->btnEight->BackColor = System::Drawing::Color::LightBlue;
 			this->btnEight->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnEight->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnEight->Location = System::Drawing::Point(81, 123);
+			this->btnEight->Location = System::Drawing::Point(61, 98);
+			this->btnEight->Margin = System::Windows::Forms::Padding(2);
 			this->btnEight->Name = L"btnEight";
-			this->btnEight->Size = System::Drawing::Size(72, 54);
+			this->btnEight->Size = System::Drawing::Size(55, 44);
 			this->btnEight->TabIndex = 6;
 			this->btnEight->Text = L"8";
 			this->btnEight->UseVisualStyleBackColor = false;
@@ -375,9 +391,10 @@ namespace Visual {
 			this->tableLayoutPanel1->SetColumnSpan(this->label1, 2);
 			this->label1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->label1->Location = System::Drawing::Point(3, 0);
+			this->label1->Location = System::Drawing::Point(2, 0);
+			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(150, 60);
+			this->label1->Size = System::Drawing::Size(114, 48);
 			this->label1->TabIndex = 0;
 			this->label1->Text = L"Calculator";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleCenter;
@@ -388,9 +405,10 @@ namespace Visual {
 			this->tableLayoutPanel1->SetColumnSpan(this->btnAttach, 2);
 			this->btnAttach->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnAttach->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
-			this->btnAttach->Location = System::Drawing::Point(159, 3);
+			this->btnAttach->Location = System::Drawing::Point(120, 2);
+			this->btnAttach->Margin = System::Windows::Forms::Padding(2);
 			this->btnAttach->Name = L"btnAttach";
-			this->btnAttach->Size = System::Drawing::Size(150, 54);
+			this->btnAttach->Size = System::Drawing::Size(114, 44);
 			this->btnAttach->TabIndex = 1;
 			this->btnAttach->Text = L"Detach";
 			this->btnAttach->UseVisualStyleBackColor = false;
@@ -402,11 +420,12 @@ namespace Visual {
 			this->calculTBox->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
 			this->tableLayoutPanel1->SetColumnSpan(this->calculTBox, 4);
 			this->calculTBox->Font = (gcnew System::Drawing::Font(L"Arial", 10));
-			this->calculTBox->Location = System::Drawing::Point(3, 76);
+			this->calculTBox->Location = System::Drawing::Point(2, 60);
+			this->calculTBox->Margin = System::Windows::Forms::Padding(2);
 			this->calculTBox->Name = L"calculTBox";
-			this->calculTBox->ReadOnly = true;
-			this->calculTBox->Size = System::Drawing::Size(306, 27);
+			this->calculTBox->Size = System::Drawing::Size(232, 23);
 			this->calculTBox->TabIndex = 4;
+			this->calculTBox->Text = L"1+2";
 			// 
 			// btnCancel
 			// 
@@ -414,9 +433,10 @@ namespace Visual {
 			this->tableLayoutPanel1->SetColumnSpan(this->btnCancel, 2);
 			this->btnCancel->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnCancel->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
-			this->btnCancel->Location = System::Drawing::Point(3, 363);
+			this->btnCancel->Location = System::Drawing::Point(2, 290);
+			this->btnCancel->Margin = System::Windows::Forms::Padding(2);
 			this->btnCancel->Name = L"btnCancel";
-			this->btnCancel->Size = System::Drawing::Size(150, 55);
+			this->btnCancel->Size = System::Drawing::Size(114, 50);
 			this->btnCancel->TabIndex = 2;
 			this->btnCancel->Text = L"Cancel";
 			this->btnCancel->UseVisualStyleBackColor = false;
@@ -428,9 +448,10 @@ namespace Visual {
 			this->tableLayoutPanel1->SetColumnSpan(this->btnSave, 2);
 			this->btnSave->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnSave->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10));
-			this->btnSave->Location = System::Drawing::Point(159, 363);
+			this->btnSave->Location = System::Drawing::Point(120, 290);
+			this->btnSave->Margin = System::Windows::Forms::Padding(2);
 			this->btnSave->Name = L"btnSave";
-			this->btnSave->Size = System::Drawing::Size(150, 55);
+			this->btnSave->Size = System::Drawing::Size(114, 50);
 			this->btnSave->TabIndex = 3;
 			this->btnSave->Text = L"Save";
 			this->btnSave->UseVisualStyleBackColor = false;
@@ -441,9 +462,10 @@ namespace Visual {
 			this->btnSeven->BackColor = System::Drawing::Color::LightBlue;
 			this->btnSeven->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->btnSeven->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold));
-			this->btnSeven->Location = System::Drawing::Point(3, 123);
+			this->btnSeven->Location = System::Drawing::Point(2, 98);
+			this->btnSeven->Margin = System::Windows::Forms::Padding(2);
 			this->btnSeven->Name = L"btnSeven";
-			this->btnSeven->Size = System::Drawing::Size(72, 54);
+			this->btnSeven->Size = System::Drawing::Size(55, 44);
 			this->btnSeven->TabIndex = 5;
 			this->btnSeven->Text = L"7";
 			this->btnSeven->UseVisualStyleBackColor = false;
@@ -451,20 +473,20 @@ namespace Visual {
 			// 
 			// PolinomCalculator
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(312, 421);
+			this->ClientSize = System::Drawing::Size(236, 342);
 			this->Controls->Add(this->tableLayoutPanel1);
 			this->DoubleBuffered = true;
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
 			this->KeyPreview = true;
-			this->MinimumSize = System::Drawing::Size(330, 439);
+			this->Margin = System::Windows::Forms::Padding(2);
+			this->MinimumSize = System::Drawing::Size(252, 364);
 			this->Name = L"PolinomCalculator";
-			this->Text = L"PolinomCalculator";
+			this->Text = L"PolynomialCalculator";
 			this->FormClosed += gcnew System::Windows::Forms::FormClosedEventHandler(this, &PolinomCalculator::PolinomCalculator_FormClosed);
 			this->LocationChanged += gcnew System::EventHandler(this, &PolinomCalculator::PolinomCalculator_LocationChanged);
 			this->SizeChanged += gcnew System::EventHandler(this, &PolinomCalculator::PolinomCalculator_SizeChanged);
-			this->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &PolinomCalculator::PolinomCalculator_KeyDown);
 			this->MouseDown += gcnew System::Windows::Forms::MouseEventHandler(this, &PolinomCalculator::PolinomCalculator_MouseDown);
 			this->tableLayoutPanel1->ResumeLayout(false);
 			this->tableLayoutPanel1->PerformLayout();
@@ -483,7 +505,9 @@ namespace Visual {
 	public:
 		void Attach(Form^ parent);
 		void Detach();
+		void UpdateBuffer();
 	private:
+
 		void UpdateLBWithBuffer();
 
 		void UpdatePosition();
@@ -504,8 +528,6 @@ namespace Visual {
 		System::Void btnBack_Click(System::Object^ sender, System::EventArgs^ e);
 		System::Void btnClear_Click(System::Object^ sender, System::EventArgs^ e);
 
-		System::Void PolinomCalculator_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e);
-		void HandleDigitKey(KeyEventArgs^ e);
 		void HandleBackSpaceKey();
 		void CalculatePolinoms();
 };

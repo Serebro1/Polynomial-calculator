@@ -24,6 +24,6 @@ public:
 	void setPolinoms(std::vector<Polinom> _polinoms) { polinoms = _polinoms; }
 	void removePolinom(int index);
 	void clearPolinoms();
-
-	Polinom calcPolinom(std::string expression);
+	Polinom parsePolinom(const std::string& polynomialStr);
+	Polinom calcPolinom(const std::string& expression);
 };

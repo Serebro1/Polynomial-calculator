@@ -102,7 +102,10 @@ void Visual::PolinomCalculator::CheckForSmartDocking()
         Attach(MyForm::Instance);
     }
 }
-
+void Visual::PolinomCalculator::UpdateBuffer()
+{
+	buffer = new std::vector<Polinom>(Model::getInstance().getPolinoms());
+}
 void Visual::PolinomCalculator::UpdateLBWithBuffer()
 {
 	auto mainLB = MyForm::Instance->MainListBox;
@@ -143,7 +146,14 @@ System::Void Visual::PolinomCalculator::btnCalc_Click(System::Object^ sender, Sy
 
 System::Void Visual::PolinomCalculator::btnEnter_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	CalculatePolinoms();
+	try {
+		CalculatePolinoms();
+	}
+	catch (const std::exception& ex)
+	{
+		String^ errorMsg = gcnew String(ex.what());
+		MessageBox::Show("Polynomial Calculator: " + errorMsg, "Error", MessageBoxButtons::OK, MessageBoxIcon::Error);
+	}
 }
 
 System::Void Visual::PolinomCalculator::btnBack_Click(System::Object^ sender, System::EventArgs^ e)
@@ -154,59 +164,6 @@ System::Void Visual::PolinomCalculator::btnBack_Click(System::Object^ sender, Sy
 System::Void Visual::PolinomCalculator::btnClear_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	calculTBox->Text = "";
-}
-
-System::Void Visual::PolinomCalculator::PolinomCalculator_KeyDown(System::Object^ sender, System::Windows::Forms::KeyEventArgs^ e)
-{
-	switch (e->KeyCode) {
-	case Keys::Enter:
-		CalculatePolinoms();
-		break;
-	case Keys::Escape:
-		calculTBox->Text = "";
-		break;
-	case Keys::Back:
-		HandleBackSpaceKey();
-		break;
-	case Keys::Add:
-		calculTBox->Text += "+";
-		break;
-	case Keys::Subtract:
-		calculTBox->Text += "-";
-		break;
-	case Keys::Multiply:
-		calculTBox->Text += "*";
-		break;
-	case Keys::D9:
-		if (e->Shift) {
-			calculTBox->Text += "(";
-			e->Handled = true;
-		}
-		break;
-	case Keys::D0:
-		if (e->Shift) {
-			calculTBox->Text += ")";
-			e->Handled = true;
-		}
-		break;
-	default:
-		HandleDigitKey(e);
-		break;
-	}
-	e->Handled = true;
-}
-
-void Visual::PolinomCalculator::HandleDigitKey(KeyEventArgs^ e)
-{
-	if ((e->KeyCode >= Keys::D0 && e->KeyCode <= Keys::D9) ||
-		(e->KeyCode >= Keys::NumPad0 && e->KeyCode <= Keys::NumPad9))
-	{
-		char digit = (e->KeyCode >= Keys::NumPad0)
-			? static_cast<char>(e->KeyCode - Keys::NumPad0)
-			: static_cast<char>(e->KeyCode - Keys::D0);
-		calculTBox->Text += digit.ToString();
-		e->Handled = true;
-	}
 }
 
 void Visual::PolinomCalculator::HandleBackSpaceKey()
@@ -220,7 +177,9 @@ void Visual::PolinomCalculator::HandleBackSpaceKey()
 void Visual::PolinomCalculator::CalculatePolinoms()
 {
 	std::string input = msclr::interop::marshal_as<std::string>(calculTBox->Text);
-	buffer->push_back(Model::getInstance().calcPolinom(input));
+	Polinom res = Model::getInstance().calcPolinom(input);
+	if (res.isEmpty()) return;
+	buffer->push_back(res);
 	UpdateLBWithBuffer();
 }
 

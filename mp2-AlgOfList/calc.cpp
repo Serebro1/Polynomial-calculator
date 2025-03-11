@@ -1,8 +1,7 @@
 #include "calc.h"
 #include <string>
 TCalc::TCalc()
-{ // зачем если по умолчанию стек создаётся с этой константой?
-	StIndex = Stack<int>();
+{
 	StChar = Stack<char>();
 	StOpers = Stack<Opers>();
 	StPolinoms = Stack<Polinom>();
@@ -58,10 +57,8 @@ Opers TCalc::transform(const char* c)
 
 Polinom TCalc::Calcul()
 {
-	StIndex.Clear();
 	StOpers.Clear();
 	std::string str = '(' + infix + ')';
-	std::vector<Polinom> polinoms = Model::getInstance().getPolinoms();
 	for (int i = 0; i < str.size(); i++)
 	{
 		char tmp = str[i];
@@ -79,11 +76,11 @@ Polinom TCalc::Calcul()
 				{
 				case pls:
 					leftPoly = StPolinoms.Pop(), rightPoly = StPolinoms.Pop();
-					StPolinoms.Push(leftPoly + rightPoly);
+					StPolinoms.Push(rightPoly + leftPoly);
 					break;
 				case mns:
 					leftPoly = StPolinoms.Pop(), rightPoly = StPolinoms.Pop();
-					StPolinoms.Push(leftPoly - rightPoly);
+					StPolinoms.Push(rightPoly - leftPoly);
 					break;
 				case mlt:
 					leftPoly = StPolinoms.Pop(), rightPoly = StPolinoms.Pop();
@@ -104,11 +101,11 @@ Polinom TCalc::Calcul()
 				{
 				case pls:
 					leftPoly = StPolinoms.Pop(), rightPoly = StPolinoms.Pop();
-					StPolinoms.Push(leftPoly + rightPoly);
+					StPolinoms.Push(rightPoly + leftPoly);
 					break;
 				case mns:
 					leftPoly = StPolinoms.Pop(), rightPoly = StPolinoms.Pop();
-					StPolinoms.Push(leftPoly - rightPoly);
+					StPolinoms.Push(rightPoly - leftPoly);
 					break;
 				case mlt:
 					leftPoly = StPolinoms.Pop(), rightPoly = StPolinoms.Pop();
