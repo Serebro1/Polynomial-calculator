@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Google-tests", "Google-test
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Visual", "Visual\Visual.vcxproj", "{44DA11AF-0D6C-4570-80EB-516A1954D572}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mp2-AlgOfList", "mp2-AlgOfList\mp2-AlgOfList.vcxproj", "{9EC92B98-96B3-4F2A-B895-A2922896EC0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{44DA11AF-0D6C-4570-80EB-516A1954D572}.Release|x64.Build.0 = Release|x64
 		{44DA11AF-0D6C-4570-80EB-516A1954D572}.Release|x86.ActiveCfg = Release|Win32
 		{44DA11AF-0D6C-4570-80EB-516A1954D572}.Release|x86.Build.0 = Release|Win32
+		{9EC92B98-96B3-4F2A-B895-A2922896EC0A}.Debug|x64.ActiveCfg = Debug|x64
+		{9EC92B98-96B3-4F2A-B895-A2922896EC0A}.Debug|x64.Build.0 = Debug|x64
+		{9EC92B98-96B3-4F2A-B895-A2922896EC0A}.Debug|x86.ActiveCfg = Debug|Win32
+		{9EC92B98-96B3-4F2A-B895-A2922896EC0A}.Debug|x86.Build.0 = Debug|Win32
+		{9EC92B98-96B3-4F2A-B895-A2922896EC0A}.Release|x64.ActiveCfg = Release|x64
+		{9EC92B98-96B3-4F2A-B895-A2922896EC0A}.Release|x64.Build.0 = Release|x64
+		{9EC92B98-96B3-4F2A-B895-A2922896EC0A}.Release|x86.ActiveCfg = Release|Win32
+		{9EC92B98-96B3-4F2A-B895-A2922896EC0A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

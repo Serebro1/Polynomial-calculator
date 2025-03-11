@@ -6,7 +6,7 @@ std::string to_string(const T& obj) {
 	oss << obj;
 	return oss.str();
 }
-std::string Model::getStrPoly(const Polinom& poly)
+std::string Model::convertPolyToStr(const Polinom& poly)
 {
 	return to_string(poly);
 }
@@ -52,4 +52,11 @@ void Model::removePolinom(int index)
 void Model::clearPolinoms()
 {
 	polinoms.clear();
+}
+
+Polinom Model::calcPolinom(std::string expression)
+{
+	calculator.Check(expression);
+	calculator.SetInfix(expression);
+	return calculator.Calcul();
 }

@@ -109,7 +109,7 @@ void Visual::PolinomCalculator::UpdateLBWithBuffer()
 	mainLB->Items->Clear();
 	for (size_t i = 0; i < buffer->size(); ++i) {
 		String^ item = gcnew String(
-			(std::to_string(i) + ": " + Model::getInstance().getStrPoly((*buffer)[i])).c_str()
+			(std::to_string(i) + ": " + Model::getInstance().convertPolyToStr((*buffer)[i])).c_str()
 		);
 		mainLB->Items->Add(item);
 	}
@@ -177,11 +177,23 @@ System::Void Visual::PolinomCalculator::PolinomCalculator_KeyDown(System::Object
 	case Keys::Multiply:
 		calculTBox->Text += "*";
 		break;
+	case Keys::D9:
+		if (e->Shift) {
+			calculTBox->Text += "(";
+			e->Handled = true;
+		}
+		break;
+	case Keys::D0:
+		if (e->Shift) {
+			calculTBox->Text += ")";
+			e->Handled = true;
+		}
+		break;
 	default:
 		HandleDigitKey(e);
 		break;
 	}
-	return System::Void();
+	e->Handled = true;
 }
 
 void Visual::PolinomCalculator::HandleDigitKey(KeyEventArgs^ e)
@@ -192,7 +204,6 @@ void Visual::PolinomCalculator::HandleDigitKey(KeyEventArgs^ e)
 		char digit = (e->KeyCode >= Keys::NumPad0)
 			? static_cast<char>(e->KeyCode - Keys::NumPad0)
 			: static_cast<char>(e->KeyCode - Keys::D0);
-
 		calculTBox->Text += digit.ToString();
 		e->Handled = true;
 	}
@@ -208,7 +219,8 @@ void Visual::PolinomCalculator::HandleBackSpaceKey()
 
 void Visual::PolinomCalculator::CalculatePolinoms()
 {
-
+	std::string input = msclr::interop::marshal_as<std::string>(calculTBox->Text);
+	buffer->push_back(Model::getInstance().calcPolinom(input));
 	UpdateLBWithBuffer();
 }
 

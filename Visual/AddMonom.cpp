@@ -133,7 +133,7 @@ void Visual::AddMonom::UpdateLBWithBuffer()
     mainLB->Items->Clear();
     for (size_t i = 0; i < buffer->size(); ++i) {
         String^ item = gcnew String(
-            (std::to_string(i) + ": " + Model::getInstance().getStrPoly((*buffer)[i])).c_str()
+            (std::to_string(i) + ": " + Model::getInstance().convertPolyToStr((*buffer)[i])).c_str()
         );
         mainLB->Items->Add(item);
     }
