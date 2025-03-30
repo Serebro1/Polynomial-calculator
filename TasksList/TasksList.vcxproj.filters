@@ -47,8 +47,5 @@
     <ClInclude Include="polinomParser.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="..\mp2-AlgOfList\calc.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

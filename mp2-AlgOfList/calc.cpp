@@ -2,7 +2,6 @@
 #include <string>
 TCalc::TCalc()
 {
-	StChar = Stack<char>();
 	StOpers = Stack<Opers>();
 	StPolinoms = Stack<Polinom>();
 }

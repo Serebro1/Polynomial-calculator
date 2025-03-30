@@ -24,6 +24,7 @@
     <ProjectGuid>{9ec92b98-96b3-4f2a-b895-a2922896ec0a}</ProjectGuid>
     <RootNamespace>mp2AlgOfList</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>mp2-AlgOfList</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,8 +128,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\PolinomList\polinom.h" />
-    <ClInclude Include="baseList.h" />
     <ClInclude Include="calc.h" />
     <ClInclude Include="ListStack.h" />
   </ItemGroup>

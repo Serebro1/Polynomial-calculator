@@ -49,7 +49,7 @@ public:
 	T getCurr() const { return pCurr->val; }
 
 	void insFirst(const T& value);
-	void insCurr(T el);
+	void insCurr(const T& value);
 	void insLast(const T& value);
 
 	void delFirst();
@@ -57,7 +57,7 @@ public:
 	void delLast();
 	
 
-	int size() { return sz; };
+	int getSize() { return sz; };
 	bool isEmpty() { return sz == 0; };
 	
 
@@ -164,6 +164,7 @@ void TList<T>::clear()
 template<class T>
 TList<T>& TList<T>::operator=(TList&& queue)
 {
+	pFirst = nullptr;
 	swap(*this, queue);
 	return *this;
 }
@@ -210,19 +211,20 @@ void TList<T>::insFirst(const T& value)
 	sz++;
 }
 template<class T>
-void TList<T>::insCurr(T el)
+void TList<T>::insCurr(const T& value)
 {
 	
 	if (pCurr == pFirst) {
-		insFirst(el);
+		insFirst(value);
 		pPrev = pFirst;
 		return;
 	}
 	if (pPrev == pLast && pCurr == nullptr) {
-		insLast(el);
+		insLast(value);
+		pPrev = pLast;
 		return;
 	}
-	Node<T>* node = new Node<T>{ el, pCurr };
+	Node<T>* node = new Node<T>{ value, pCurr };
 	pPrev->pNext = node;
 	pPrev = pPrev->pNext;
 	sz++;

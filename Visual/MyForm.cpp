@@ -55,7 +55,7 @@ System::Void Visual::MyForm::addMonomButton_Click(System::Object^ sender, System
 		);
 
 		std::string monomStr = msclr::interop::marshal_as<std::string>(input);
-		model.setMonom(model.parser.parseMonomial(monomStr));
+		model.setMonom(monomStr);
 
 		AddMonom^ child = AddMonom::Instance;
 		if (!child->Visible) {

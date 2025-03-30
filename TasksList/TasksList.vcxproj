@@ -24,7 +24,7 @@
     <ProjectGuid>{e2d5ad16-7fbd-44ae-b112-7b916b9cc709}</ProjectGuid>
     <RootNamespace>TasksList</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>TasksList</ProjectName>
+    <ProjectName>PolinomList</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -134,7 +134,6 @@
     <ClCompile Include="polinom.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\mp2-AlgOfList\calc.h" />
     <ClInclude Include="iteratorTList.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="monom.h" />

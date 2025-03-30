@@ -27,10 +27,10 @@
     <ClCompile Include="..\TasksList\Model.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\TasksList\polinom.cpp">
+    <ClCompile Include="..\mp2-AlgOfList\calc.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="..\mp2-AlgOfList\calc.cpp">
+    <ClCompile Include="..\PolinomList\polinom.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,18 +42,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="PolinomCalculator.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TasksList\Model.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TasksList\polinom.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TasksList\polinomParser.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="..\mp2-AlgOfList\calc.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -121,17 +121,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\mp2-AlgOfList\calc.cpp" />
+    <ClCompile Include="..\PolinomList\polinom.cpp" />
     <ClCompile Include="..\TasksList\Model.cpp" />
-    <ClCompile Include="..\TasksList\polinom.cpp" />
     <ClCompile Include="AddMonom.cpp" />
     <ClCompile Include="MyForm.cpp" />
     <ClCompile Include="PolinomCalculator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\mp2-AlgOfList\calc.h" />
-    <ClInclude Include="..\TasksList\Model.h" />
-    <ClInclude Include="..\TasksList\polinom.h" />
-    <ClInclude Include="..\TasksList\polinomParser.h" />
     <ClInclude Include="AddMonom.h">
       <FileType>CppForm</FileType>
     </ClInclude>
